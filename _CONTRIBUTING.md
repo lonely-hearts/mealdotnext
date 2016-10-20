@@ -3,28 +3,42 @@
 ## General Workflow
 
 1. Fork the repo
-1. Cut a namespaced feature branch from master
+
+2. Cut a namespaced feature branch from master
   - bug/...
   - feat/...
   - test/...
   - doc/...
   - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
+
+Example: git checkout -b feat/calendar
+
+3. Make commits to your feature branch. Prefix each commit like so:
   - (feat) Added a new feature
   - (fix) Fixed inconsistent tests [Fixes #0]
   - (refactor) ...
   - (cleanup) ...
   - (test) ...
   - (doc) ...
-1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
+
+4. When you are done with your fix or feature, rebase upstream changes into your branch. If there
+   are conflicts during the rebasing process, merge conflicts and continue rebasing. Be sure rerun
+   your tests and make sure they work.
+
+Example: git pull --rebase upstream master
+         git rebase --continue 
+
+5. Submit a [pull request][] directly to master. Include a description of your changes.
+
+6. Your pull request will be reviewed by another maintainer. The point of code
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
    requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
+
+7. Fix any issues raised by your code reviwer, and push your fixes as a single
    new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+
+8. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
 ## Detailed Workflow
 
@@ -144,16 +158,16 @@ Thanks for contributing!
     - Keep your code [DRY][].
     - Apply the [boy scout rule][].
     - Follow [STYLE-GUIDE.md](STYLE-GUIDE.md)
-1. Run the [tests][] before submitting a pull request.
-1. Tests are very, very important. Submit tests if your pull request contains
+2. Run the [tests][] before submitting a pull request.
+3. Tests are very, very important. Submit tests if your pull request contains
    new, testable behavior.
-1. Your pull request is comprised of a single ([squashed][]) commit.
+4. Your pull request is comprised of a single ([squashed][]) commit.
 
 ## Checklist:
 
 This is just to help you organize your process
 
-- [ ] Did I cut my work branch off of master (don't cut new branches from existing feature brances)?
+- [ ] Did I cut my work branch off of master (don't cut new branches from existing feature branches)?
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
