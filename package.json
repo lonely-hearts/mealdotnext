@@ -1,0 +1,19 @@
+{
+  "name": "mealdotnext",
+  "version": "1.0.0",
+  "description": "simplify grocery shopping with meal planner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheneym/mealdotnext/issues"
+  },
+  "homepage": "https://github.com/cheneym/mealdotnext#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "^4.6.4"
+  }
+}
