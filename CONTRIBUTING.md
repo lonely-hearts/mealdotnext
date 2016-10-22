@@ -21,24 +21,35 @@ Example: git checkout -b feat/calendar
   - (test) ...
   - (doc) ...
 
-4. When you are done with your fix or feature, rebase upstream changes into your branch. If there
-   are conflicts during the rebasing process, merge conflicts and continue rebasing. Be sure rerun
-   your tests and make sure they work.
+4. When you are done with your fix or feature, rebase upstream changes
+   into your branch. If there are conflicts during the rebasing process, 
+   merge conflicts and continue rebasing. Be sure rerun your tests and 
+   make sure they work.
 
 Example: git pull --rebase upstream master
          git rebase --continue 
 
-5. Submit a [pull request][] directly to master. Include a description of your changes.
+5. Push your branches changes to your origin
+Example: git push origin <branchname>
 
-6. Your pull request will be reviewed by another maintainer. The point of code
+6. Submit a [pull request][] from your branch to the main repository master. 
+   Include a description of your changes.
+   
+Example: base fork: lonely-hearts/mealdotnext base: master
+         head fork: <user>/mealdotnext        base: <branchname>
+
+7. Your pull request will be reviewed by another maintainer. The point of code
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
    requests you make a change you don't understand, ask them why.
 
-7. Fix any issues raised by your code reviwer, and push your fixes as a single
+8. Fix any issues raised by your code reviwer, and push your fixes as a single
    new commit.
 
-8. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+9. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+
+10. If you want, update your own master branch when new commits have been merged.
+Example: git pull --rebase upstream master
 
 ## Detailed Workflow
 
