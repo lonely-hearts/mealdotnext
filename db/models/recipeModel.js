@@ -11,9 +11,33 @@ const NutrientSchema = new mongoose.Schema({
   label: String,
   tag: String,
   hasRDI: Boolean,
-  quantity: Number,
+  total: Number,
   unit: String,
   daily: Number,
+});
+
+NutrientSchema.add({
+  sub: { type: [NutrientSchema], required: false },
+});
+
+const TotalNutrientSchema = new mongoose.Schema({
+  ENERC_KCAL: NutrientSchema,
+  FASAT: NutrientSchema,
+  CHOCDF: NutrientSchema,
+  FIBTG: NutrientSchema,
+  PROCNT: NutrientSchema,
+  FE: NutrientSchema,
+  ZN: NutrientSchema,
+  P: NutrientSchema,
+  VITA_RAE: NutrientSchema,
+  VITC: NutrientSchema,
+  THIA: NutrientSchema,
+  RIBF: NutrientSchema,
+  NIA: NutrientSchema,
+  VITB6A: NutrientSchema,
+  FOL: NutrientSchema,
+  TOCPHA: NutrientSchema,
+  VITK1: NutrientSchema,
 });
 
 const RecipeSchema = new mongoose.Schema({
@@ -27,7 +51,8 @@ const RecipeSchema = new mongoose.Schema({
   ingredients: [IngredientSchema],
   calories: Number,
   totalWeight: Number,
-  totalNutrients: [NutrientSchema],
+  totalNutrients: TotalNutrientSchema,
+  digest: [NutrientSchema],
 });
 
 module.exports = mongoose.model('recipe', RecipeSchema);
