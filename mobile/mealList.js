@@ -28,7 +28,7 @@ export default class MealList extends React.Component {
     this.state = {fetchData: null};
   } 
   componentWillMount () {
-    fetch(url + qs('57b43c31', 'febe181fea540f56d270083f950d9f69', 'beef'))
+    fetch(url + qs( 'beef'))
       .then((data) => {
         // console.log('DATA, ', JSON.parse(data))
         this.setState({
