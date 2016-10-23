@@ -31,4 +31,11 @@ module.exports = {
         }
       });
   },
+
+  findAllRecipes: (req, res) => {
+    Recipe.find({}).exec()
+      .then((storedRecipes) => {
+        res.json(storedRecipes);
+      });
+  },
 };
