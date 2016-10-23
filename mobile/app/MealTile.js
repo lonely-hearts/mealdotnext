@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry, View, Image } from 'react-native';
 
-export default class LogoDisplay extends Component {
+export default class Tile extends Component {
+  constructor(props) {
+    super(props);
+  }
+
 	render() {
     return (
       <View>
