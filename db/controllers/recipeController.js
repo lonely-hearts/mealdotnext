@@ -38,4 +38,12 @@ module.exports = {
         res.json(storedRecipes);
       });
   },
+
+  addRecipe: (req, res) => {
+    const newRecipe = req.body;
+    Recipe.create(newRecipe)
+      .then((recipe) => {
+        res.json(recipe);
+      });
+  },
 };
