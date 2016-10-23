@@ -10,4 +10,5 @@ router.route('/')
 
 router.route('/:q')
   .get(recipeController.findRecipes);
+
 module.exports = router;
