@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./; exit 0"
+    "lint": "eslint ./; exit 0",
+    "start": "nodemon server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,13 +15,15 @@
   },
   "homepage": "https://github.com/cheneym/mealdotnext#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "eslint": "^3.8.1",
     "eslint-config-airbnb": "^12.0.0",
     "express": "^4.14.0",
     "mongoose": "^4.6.4",
     "nodemon": "^1.11.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "request": "^2.75.0"
   },
   "devDependencies": {
     "eslint": "^3.8.1",
