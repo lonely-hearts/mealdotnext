@@ -14,7 +14,13 @@ module.exports = {
           rp(queryString)
             .then((body) => {
               const newRecipes = JSON.parse(body).hits
-                                 .map(recipeContainer => recipeContainer.recipe);
+                .map(recipeContainer => recipeContainer.recipe);
+
+              newRecipes.forEach((recipe) => {
+                const tempRecipe = recipe;
+                tempRecipe.q = query;
+              });
+
               Recipe.create(newRecipes)
                 .then((recipes) => {
                   res.json(recipes);
