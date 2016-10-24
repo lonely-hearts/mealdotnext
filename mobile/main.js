@@ -6,13 +6,14 @@ import {
   View,
 } from 'react-native';
 import LogoDisplay from './app/LogoDisplay';
+import sampleData from './assets/sampleData';
+import ShoppingList from './app/ShoppingList';
 
 class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Work Plz</Text>
-        <LogoDisplay />
+        <ShoppingList ingredients={sampleData.hits[0].recipe.ingredientLines}/>
       </View>
     );
   }
