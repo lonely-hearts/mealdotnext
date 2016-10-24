@@ -1,6 +1,7 @@
 import Exponent from 'exponent';
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+import sampleData from '../assets/sampleData';
 
 var url = 'https://api.edamam.com/search?';
 var qs = (appId, appKey, search) => {
@@ -45,7 +46,11 @@ export default class MealList extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text>{this.state.fetchData}</Text>
+          {
+            sampleData.hits.map((meal) => {
+              <MealTile recipe={meal.recipe} /> 
+            })
+          }
         </View>
       );
     }

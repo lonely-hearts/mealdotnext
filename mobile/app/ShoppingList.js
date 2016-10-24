@@ -6,7 +6,7 @@ import Ingredient from './Ingredient.js';
 export default class ShoppingList extends React.Component {
   render() {
     return (
-      <Ingredient name={this.props.ingredients[0]} />
+      <Ingredient name={this.props.ingredients[0].food} />
     );
   }
 }
