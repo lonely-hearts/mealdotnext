@@ -12,6 +12,7 @@ import ShoppingList from './app/ShoppingList';
 import MealTile from './app/MealTile';
 import MealList from './app/MealList';
 import HeadBuffer from './app/HeadBuffer';
+import Searchbar from './app/Searchbar';
 
 class App extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
       <View style={styles.main}>
         <HeadBuffer />
         <LogoDisplay />
+        <Searchbar />
         <MealList />
       </View>
     );
