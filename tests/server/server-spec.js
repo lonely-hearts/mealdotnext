@@ -13,30 +13,64 @@ const beforeEach = mocha.beforeEach;
 // const afterEach = mocha.afterEach;
 
 describe('Node Recipe Server', () => {
-  const query = 'something';
+  const q = 'something';
+  const label = 'bananananananna';
+  const ingredients = [{
+    food: 'apple',
+    quantity: 1,
+    measure: 'g',
+    weight: 1234,
+  }];
+  const calories = 1234;
+
   beforeEach((done) => {
-    Recipe.remove({ q: query }).exec();
+    Recipe.remove({ q }).exec();
 
     done();
   });
 
+  describe('Recipe creation: ', () => {
+    it('Only adds valid recipes db, return 404 for invalid recipes', (done) => {
+      request(server)
+        .post('/api/recipe')
+        .send({ q })
+        .expect(404)
+        .expect(() => {
+          Recipe.find({ q })
+            .exec((err, recipes) => {
+              if (err) { console.err(err); }
+              expect(recipes.length).to.equal(0);
+            });
+        })
+        .end(done);
+    });
 
-  it('Should insert valid posted recipes to the DB', (done) => {
-    request(server)
-      .post('/api/recipe')
-      .send({
-        q: query,
-      })
-      .expect(200)
-      .expect(() => {
-        Recipe.find({ q: query })
-          .exec((err, recipes) => {
-            if (err) { console.err(err); }
-            expect(recipes.length).to.equal(1);
-            expect(recipes[0].q).to.equal(query);
-          });
-        // expect(1).to.equal(1);
-      })
-      .end(done);
+    it('Should insert valid posted recipes to the DB', (done) => {
+      request(server)
+        .post('/api/recipe')
+        .send({ q, label, ingredients, calories })
+        .expect(200)
+        .expect(() => {
+          Recipe.find({ q })
+            .exec((err, recipes) => {
+              if (err) { console.err(err); }
+              expect(recipes.length).to.equal(1);
+              expect(recipes[0].q).to.equal(q);
+            });
+        })
+        .end(done);
+    });
+
+    it('Should return an instance of the new recipe', (done) => {
+      const newRecipe = { q, label, ingredients, calories };
+      request(server)
+        .post('/api/recipe')
+        .send(newRecipe)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include.keys('q', 'label', 'ingredients', 'calories');
+        })
+        .end(done);
+    });
   });
 });

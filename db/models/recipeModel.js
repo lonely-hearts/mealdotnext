@@ -41,15 +41,15 @@ const TotalNutrientSchema = new mongoose.Schema({
 });
 
 const RecipeSchema = new mongoose.Schema({
-  q: String,
+  q: { type: String, required: true },
   uri: String,
-  label: String,
+  label: { type: String, required: true },
   image: String,
-  servings: Number,
+  servings: { type: Number, default: 1 },
   healthLabels: [String],
   dietLabels: [String],
-  ingredients: [IngredientSchema],
-  calories: Number,
+  ingredients: { type: [IngredientSchema], required: true },
+  calories: { type: Number, required: true },
   totalWeight: Number,
   totalNutrients: TotalNutrientSchema,
   digest: [NutrientSchema],

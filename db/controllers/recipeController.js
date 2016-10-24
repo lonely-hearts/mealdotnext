@@ -44,6 +44,9 @@ module.exports = {
     Recipe.create(newRecipe)
       .then((recipe) => {
         res.json(recipe);
+      })
+      .catch(() => {
+        res.sendStatus(404);
       });
   },
 };
