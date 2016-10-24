@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb://localhost/mealnext';
+const mongoUser = 'hog';
+const mongoPassword = 'wild';
+const mongoURI = `mongodb://${mongoUser}:${mongoPassword}@ds031167.mlab.com:31167/mealdotnext`;
 mongoose.connect(mongoURI);
 
 const db = mongoose.connection;
