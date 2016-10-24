@@ -4,27 +4,30 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
 } from 'react-native';
 import LogoDisplay from './app/LogoDisplay';
 import sampleData from './assets/sampleData';
 import ShoppingList from './app/ShoppingList';
+import MealTile from './app/MealTile';
 
 class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <ShoppingList ingredients={sampleData.hits[0].recipe.ingredientLines}/>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        {sampleData.hits.map(item => (
+          <MealTile recipe={item.recipe} />
+          ))}
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center'
   },
 });
 
