@@ -11,7 +11,8 @@ const Recipe = require('../../db/models/recipeModel.js');
 const describe = mocha.describe;
 const it = mocha.it;
 const before = mocha.before;
-const beforeEach = mocha.beforeEach;
+// const beforeEach = mocha.beforeEach;
+const after = mocha.after;
 // const afterEach = mocha.afterEach;
 
 // Need to unit test schemas
@@ -28,6 +29,11 @@ describe('Node Recipe Server', () => {
   const calories = 1234;
 
   before((done) => {
+    Recipe.remove({ q }).exec();
+    done();
+  });
+
+  after((done) => {
     Recipe.remove({ q }).exec();
     done();
   });
@@ -130,18 +136,23 @@ describe('Node Recipe Server', () => {
       });
     });
 
-    describe('GET requests to /api/recipe/<query>: ', () => {
-      it('GET request to /api/recipe should return an array of recipes', (done) => {
-        request(server)
-          .get('/api/recipe')
-          .expect(200)
-          .expect((res) => {
-            expect(res.body).to.be.instanceof(Array);
-            if (res.body.length > 0) {
-              expect(res.body[0]).to.include.keys('q', 'label', 'ingredients', 'calories');
-            }
-          })
-          .end(done);
+    describe('GET requests to /api/recipe: ', () => {
+      it('should return an array of recipes in db', (done) => {
+        Recipe.find({})
+          .exec((err, recipes) => {
+            if (err) { console.err(err); }
+            request(server)
+              .get(`/api/recipe/${q}`)
+              .expect(200)
+              .expect((res) => {
+                expect(res.body).to.be.instanceof(Array);
+                if (res.body.length > 0) {
+                  expect(res.body[0]).to.include.keys('q', 'label', 'ingredients', 'calories');
+                }
+                expect(res.body.length).to.deep.equal(recipes.length);
+              })
+              .end(done);
+          });
       });
     });
   });
