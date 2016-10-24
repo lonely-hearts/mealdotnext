@@ -1,10 +1,6 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 
 var url = 'https://api.edamam.com/search?';
 var qs = (appId, appKey, search) => {
@@ -40,7 +36,10 @@ export default class MealList extends React.Component {
     if(!this.state.fetchData) {
       return (
       <View style={styles.container}>
-        <Text>Data is still loading!</Text>
+        <Image
+          style={{width: 100, height: 100}}
+          source={{uri: 'http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif'}}
+        />
       </View>
       )
     } else {
