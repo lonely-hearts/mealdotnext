@@ -1,7 +1,8 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
 import sampleData from '../assets/sampleData';
+import MealTile from './MealTile';
 
 var url = 'https://api.edamam.com/search?';
 var qs = (appId, appKey, search) => {
@@ -22,16 +23,16 @@ var qs = (appId, appKey, search) => {
 export default class MealList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {fetchData: null};
+    this.state = {fetchData: true};
   } 
   componentWillMount () {
-    fetch(url + qs('57b43c31', '`febe181fea540f56d270083f950d9f69`', 'beef'))
-      .then((data) => {
-        // console.log('DATA, ', JSON.parse(data))
-        this.setState({
-          fetchData: JSON.stringify(data)
-        })
-      })
+    // fetch(url + qs('beef'))
+    //   .then((data) => {
+    //     // console.log('DATA, ', JSON.parse(data))
+    //     this.setState({
+    //       fetchData: JSON.stringify(data)
+    //     })
+    //   })
   }
   render() {
     if(!this.state.fetchData) {
@@ -45,14 +46,12 @@ export default class MealList extends React.Component {
       )
     } else {
       return (
-        <View style={styles.container}>
-          {
-            sampleData.hits.map((meal) => {
-              <MealTile recipe={meal.recipe} /> 
-            })
-          }
-        </View>
-      );
+        <ScrollView contentContainerStyle={styles.container}>
+          {sampleData.hits.map(meal => (
+            <MealTile recipe={meal.recipe} /> 
+          ))}
+        </ScrollView>
+      )
     }
   }
 }
@@ -60,7 +59,6 @@ export default class MealList extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
