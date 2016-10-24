@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  meals: { type: [Schema.Types.ObjectId], ref: 'Meal' },
+  meals: { type: [Schema.Types.ObjectId], ref: 'meal' },
   shoppingList: [IngredientSchema],
 });
 
