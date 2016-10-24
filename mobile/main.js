@@ -9,6 +9,7 @@ import LogoDisplay from './app/LogoDisplay';
 import MealList from './app/MealList';
 import HeadBuffer from './app/HeadBuffer';
 import Searchbar from './app/Searchbar';
+import HeaderDisplay from './app/HeaderDisplay';
 
 const styles = StyleSheet.create({
   main: {
@@ -39,6 +40,7 @@ class App extends React.Component {
           <View tabLabel="Meals">
           </View>
         </ScrollableTabView>
+        <MealList />
       </View>
     );
   }

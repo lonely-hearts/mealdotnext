@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
       width: 3,
       height: 3
     },
-    borderBottomWidth: 3,
     borderRightWidth: 3,
+    borderBottomWidth: 3,
     borderColor: 'black',
   },
   picture: {

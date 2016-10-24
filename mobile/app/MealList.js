@@ -47,7 +47,8 @@ export default class MealList extends React.Component {
     } else {
       return (
         <ScrollView contentContainerStyle={styles.contentContainer}
-                    showsVerticalScrollIndicator={false}>
+                    showsVerticalScrollIndicator={false}
+                    alwaysBounceVertical={true}>
           {sampleData.hits.map(meal => (
             <MealTile recipe={meal.recipe} /> 
           ))}
