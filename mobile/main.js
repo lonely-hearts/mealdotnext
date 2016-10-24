@@ -11,13 +11,26 @@ import sampleData from './assets/sampleData';
 import ShoppingList from './app/ShoppingList';
 import MealTile from './app/MealTile';
 import MealList from './app/MealList';
+import HeadBuffer from './app/HeadBuffer';
 
 class App extends React.Component {
   render() {
     return (
-      <MealList />
+      <View style={styles.main}>
+        <HeadBuffer />
+        <LogoDisplay />
+        <MealList />
+      </View>
     );
   }
 }
 
 Exponent.registerRootComponent(App);
+
+const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    flex: 1
+  },
+});

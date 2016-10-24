@@ -46,7 +46,8 @@ export default class MealList extends React.Component {
       )
     } else {
       return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={styles.contentContainer}
+                    showsVerticalScrollIndicator={false}>
           {sampleData.hits.map(meal => (
             <MealTile recipe={meal.recipe} /> 
           ))}
@@ -58,9 +59,8 @@ export default class MealList extends React.Component {
 
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
 });

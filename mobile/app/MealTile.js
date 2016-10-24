@@ -11,7 +11,7 @@ export default class Tile extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.tile}>
         <Image
           style={styles.picture}
           source={{uri: this.props.recipe.image}}>
@@ -19,41 +19,58 @@ export default class Tile extends Component {
             <Text style={styles.headline}>
               {this.props.recipe.label}
             </Text>
-            <Text style={styles.headline2}>
-              {this.props.recipe.label}
-            </Text>
           </View>
         </Image>
-
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  tile: {
+    width: width*0.9, 
+    height: 90, 
+    borderRadius: 5,
+    marginTop: 8,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3,
+      height: 3
+    },
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    borderColor: 'black',
+  },
   picture: {
     width: width*0.9, 
     height: 90, 
-    opacity: 0.6, 
-    borderRadius: 5, 
-    marginTop: 10
+    opacity: .85, 
+    borderRadius: 5,   
   },
-  headline2: {
-    position: 'absolute',
-    fontSize: 30,
-    marginLeft: 40,
-    top: 25,
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white',
-    opacity: 1
+  textwrap: {
+    width: width*0.9, 
+    height: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3,
+      height: 3
+    }
   },
   headline: {
-    position: 'absolute',
-    marginLeft: 43,
-    fontSize: 30,
-    top: 27,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 26,
     backgroundColor: 'rgba(0,0,0,0)',
-    color: 'black',
-    opacity: 1
+    color: 'white',
+    opacity: 1,
+    textAlign: 'center',
+    textShadowColor: 'black',
+    textShadowRadius: 2,
+    textShadowOffset: {
+      width: 2,
+      height: 2
+    }
   }
 });
