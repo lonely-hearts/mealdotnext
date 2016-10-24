@@ -1,6 +1,5 @@
-/* You'll need to have MongoDB running and your Node server running
- * for these tests to pass. */
 'use strict';
+
 const mocha = require('mocha');
 const request = require('supertest');
 const expect = require('chai').expect;

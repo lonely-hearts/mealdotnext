@@ -4,7 +4,7 @@
   "description": "simplify grocery shopping with meal planner",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --bail --reporter nyan tests/server/server-spec.js",
+    "test": "mocha --bail --reporter nyan tests/specs.js",
     "lint": "eslint ./; exit 0",
     "start": "nodemon server/server.js"
   },
@@ -19,8 +19,6 @@
     "body-parser": "^1.15.2",
     "browser-sync": "^2.17.5",
     "chai": "^3.5.0",
-    "eslint": "^3.8.1",
-    "eslint-config-airbnb": "^12.0.0",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
