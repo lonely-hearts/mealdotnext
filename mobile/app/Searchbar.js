@@ -5,15 +5,6 @@ import {
   TextInput,
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 100,
-  },
-});
-
 export default class Searchbar extends React.Component {
   constructor(props) {
     super(props);
@@ -26,15 +17,13 @@ export default class Searchbar extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
         <TextInput
           // ref={component => this._textInput = component}
-          style={{ height: 50, width: 300, borderWidth: 1, borderColor: '#888888' }}
+          style={{ height: 40, flexDirection: 'row', textAlign: 'center', borderWidth: 1, borderColor: 'green' }}
           onChangeText={text => this.setState({ text })}
           placeholder="Search..."
           value={this.state.text}
         />
-      </View>
     );
   }
 }
