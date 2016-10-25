@@ -2,6 +2,7 @@ const User = require('../models/userModel.js');
 const mealController = require('./mealController.js');
 const jwt = require('jsonwebtoken');
 const secret = require('../../server/config/config.js').secret;
+const bcrypt = require('bcrypt-nodejs');
 
 exports.getUser = (req, res) => {
   const username = req.params.username;

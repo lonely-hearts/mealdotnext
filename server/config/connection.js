@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const mongoUser = 'hog';
 const mongoPassword = 'wild';
-const mongoURI = `mongodb://${mongoUser}:${mongoPassword}@ds031167.mlab.com:31167/mealdotnext`;
+const mongoURI = `mongodb://${mongoUser}:${mongoPassword}@ds031597.mlab.com:31597/mealdotnext2`;
 mongoose.connect(mongoURI);
 
 const db = mongoose.connection;
