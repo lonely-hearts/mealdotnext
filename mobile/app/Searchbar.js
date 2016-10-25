@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
 var width = Dimensions.get('window').width;
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 2, 
     borderColor: 'gray',
-    width: width*0.9 
+    width: width*0.9
   },
 });
 

@@ -34,7 +34,7 @@ export default class MealList extends React.Component {
     this.state = {
       fetchData: [],
       displayInfo: false,
-      searchString: '',
+      searchString: 'chicken',
       currentRecipe: {}
     };
   } 
@@ -94,7 +94,6 @@ export default class MealList extends React.Component {
     else {
       return (
         <View style={styles.container}>
-          <LogoDisplay />
           <Searchbar enter={this.search.bind(this)}/>
           <ScrollView contentContainerStyle={styles.contentContainer}
                       showsVerticalScrollIndicator={false}
@@ -114,7 +113,7 @@ export default class MealList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   contentContainer: {
     backgroundColor: '#fff',
