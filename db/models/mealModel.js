@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
-const Recipe = require('./recipeModel.js');
-const User = require('./userModel.js');
+mongoose.Promise = require('bluebird');
 
-const MealSchema = new mongoose.Schema({
-	userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-	recipeId: { type: mongoose.Schema.Types.ObjectId, ref: 'recipe' },
-	haveIngredient: Boolean,
-},{timestamps: true});
-
+const MealSchema = require('./schema/mealSchema.js');
 
 module.exports = mongoose.model('meal', MealSchema);

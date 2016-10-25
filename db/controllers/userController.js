@@ -28,4 +28,18 @@ module.exports = {
         }
       });
   },
+
+  deleteUserMeal: (userId, mealId) => User.findOne({ _id: userId })
+    .then((foundUser) => {
+      foundUser.meals.splice(foundUser.meals.indexOf(mealId), 1);
+      return User.findByIdAndUpdate({ _id: userId }, { $set: { meals: foundUser.meals } }, { new: true });
+    })
+    .then(updatedUser => updatedUser),
+
+  addUserMeal: (userId, mealId) => User.findOne({ _id: userId })
+    .then((foundUser) => {
+      const newArr = foundUser.meals.concat([mealId]);
+      return User.findByIdAndUpdate({ _id: userId }, { $set: { meals: newArr } }, { new: true });
+    })
+    .then(updatedUser => updatedUser),
 };
