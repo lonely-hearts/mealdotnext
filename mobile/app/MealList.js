@@ -1,18 +1,10 @@
-import Exponent from 'exponent';
-import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, Dimensions} from 'react-native';
-import sampleData from '../assets/sampleData';
-import MealTile from './MealTile';
 
-import Searchbar from './Searchbar';
-import HeaderDisplay from './HeaderDisplay';
-import HeadBuffer from './HeadBuffer';
-import LogoDisplay from './LogoDisplay';
+import React from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
 
-var width = Dimensions.get('window').width;
-
-var url = 'https://mealdotnext.herokuapp.com/api/meal/580fb932530bb17c05bc4142';
+const url = 'https://mealdotnext.herokuapp.com/api/meal/580fb932530bb17c05bc4142';
 
 export default class MealList extends React.Component {
   constructor(props) {
@@ -21,36 +13,31 @@ export default class MealList extends React.Component {
       fetchData: [],
       displayInfo: false,
       currentRecipe: {},
-      currentMeal: 0
+      currentMeal: 0,
     };
-  } 
+  }
 
-  componentWillMount () {
+  componentWillMount() {
     this.getData();
   }
 
+  getData() {
+    fetch(url)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({
+          fetchData: data,
+        });
+      }).done();
+  }
+
   postMeal() {
-    console.log(this.state.currentMeal);
-    fetch('https://mealdotnext.herokuapp.com/api/meal/' 
-            + this.state.currentMeal, 
+    fetch(`https://mealdotnext.herokuapp.com/api/meal/${this.state.currentMeal}`,
             { method: 'DELETE' });
     this.setState({
       displayInfo: false,
-      currentRecipe: {}
+      currentRecipe: {},
     }, this.getData);
-
-  }
-
-  getData () {
-    fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        this.setState({
-          fetchData: data
-        });
-      }).done();
   }
 
   showInfo(recipe, mealId) {
@@ -58,32 +45,20 @@ export default class MealList extends React.Component {
     this.setState({
       currentRecipe: recipe,
       displayInfo: true,
-      currentMeal: mealId
+      currentMeal: mealId,
     })
   }
 
   hideInfo() {
     this.setState({
       displayInfo: false,
-      currentRecipe: {}
+      currentRecipe: {},
     }, this.getData);
-    
   }
 
-
   render() {
-    if(!this.state.fetchData) {
-      return (
-      <View style={styles.container}>
-        <Image
-          style={{width: 100, height: 100}}
-          source={{uri: 'http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif'}}
-        />
-      </View>
-      )
-    } 
-    else if(this.state.displayInfo) {
-      return <InfoDisplay recipe={this.state.currentRecipe} 
+    if (this.state.displayInfo) {
+      return <InfoDisplay recipe={this.state.currentRecipe}
                           hideInfo={this.hideInfo.bind(this)}
                           postMeal={this.postMeal.bind(this)}
                           text='DELETE' />
@@ -103,7 +78,7 @@ export default class MealList extends React.Component {
             ))}
           </ScrollView>
         </View>
-      )
+      );
     }
   }
 }

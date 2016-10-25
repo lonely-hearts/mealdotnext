@@ -2,36 +2,38 @@ import React, { Component } from 'react';
 import { ScrollView, View, Image, Dimensions, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import HeaderDisplay from './HeaderDisplay';
 import Ingredient from './Ingredient.js';
+import Button from './Button';
 
-var width = Dimensions.get('window').width;
+const width = Dimensions.get('window').width;
 
 export default class InfoDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <HeaderDisplay recipe={this.props.recipe} />
+
         <Image 
           style={styles.picture}
           source={{uri: this.props.recipe.image}} />
 
-        <TouchableHighlight style={styles.tile}
-                            onPress={this.props.hideInfo}>
-          <Text style={styles.click}>BACK</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.tile}
-                            onPress={this.props.postMeal}>
-          <Text style={styles.click}>{this.props.text}</Text>
-        </TouchableHighlight>
+        
+        
+        <Button onclick={this.props.postMeal} 
+                text={this.props.text} />
+        
+        <Button onclick={this.props.hideInfo}
+                text='BACK'/>
+
+        
+
         {this.props.recipe.ingredients.map((item,i) => (
           <Ingredient name={item.food} key={i}/>
           ))}
         {this.props.recipe.digest.map((item,i) => (
           <Ingredient name={item.label} key={i} />
           ))}
+
+        
         
       </ScrollView>
     );
