@@ -6,8 +6,10 @@ require('./config/connection.js');
 require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app, express);
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
 
 module.exports = app;
