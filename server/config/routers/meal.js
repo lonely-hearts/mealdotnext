@@ -14,7 +14,7 @@ router.route('/:userId')
 router.route('/')
   .post(mealController.saveMeal);
 
-router.route('/')
+router.route('/:mealId')
   .delete(mealController.deleteMeal);
 
 router.route('/')

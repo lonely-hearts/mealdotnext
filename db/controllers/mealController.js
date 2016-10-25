@@ -1,6 +1,6 @@
 const Recipe = require('../models/recipeModel.js');
 const Meal = require('../models/mealModel.js');
-// const User = require('../models/userModel.js');
+const userController = require('./userController.js');
 
 exports.saveMeal = (req, res) => {
   new Meal({
@@ -10,34 +10,40 @@ exports.saveMeal = (req, res) => {
   })
   .save()
   .then((savedMeal) => {
-    console.log('saved Meal:', savedMeal);
-    res.send('Meal saved');
+    userController.addUserMeal(savedMeal.userId, savedMeal['_id'])
+    .then((updatedUser) => {
+      console.log('Updated User:', updatedUser);
+      res.status(200).send('Meal saved');
+    });
   });
 };
 
 exports.deleteMeal = (req, res) => {
-  Meal.remove({
-    _id: req.body.mealId,
-  })
+  Meal.findOneAndRemove({ _id: req.params.mealId })
   .then((deletedMeal) => {
-    console.log('deleted Meal:', deletedMeal.result);
-    res.send('Meal deleted');
+    userController.deleteUserMeal(deletedMeal.userId, req.params.mealId)
+    .then((updatedUser) => {
+      console.log('delete updated User:', updatedUser);
+      res.status(200).send('Meal deleted');
+    });
   });
 };
 
 exports.getAllMeals = (req, res) => {
-  console.log(req.params.userId);
   Meal.find({
     userId: req.params.userId,
   })
   .then((userMeals) => {
-    const allMeals = userMeals.map(meal => Recipe.findOne({ _id: meal.recipeId }).exec()
+    const allMeals = userMeals.map(meal => Recipe.findOne({ _id: meal.recipeId })
+    .exec()
     .then((recipe) => {
       meal.recipe = recipe;
       return meal;
     }));
-    console.log('Meals found for User:', userMeals);
-    return Promise.all(allMeals).then(mealObjs => mealObjs);
+    return Promise.all(allMeals).then((mealObjs) => {
+      console.log('Meals found for User:', mealObjs);
+      return mealObjs;
+    });
   })
   .then((completeMeals) => {
     res.json(completeMeals);
