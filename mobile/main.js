@@ -4,12 +4,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import LogoDisplay from './app/LogoDisplay';
 import MealList from './app/MealList';
-import HeadBuffer from './app/HeadBuffer';
 import Searchbar from './app/Searchbar';
-import HeaderDisplay from './app/HeaderDisplay';
+
+import HeadBuffer from './app/HeadBuffer';
+import LogoDisplay from './app/LogoDisplay';
 
 const styles = StyleSheet.create({
   main: {
@@ -24,23 +23,7 @@ class App extends React.Component {
     return (
       <View style={styles.main}>
         <HeadBuffer />
-        <LogoDisplay />
-        <Searchbar />
-        <ScrollableTabView
-          renderTabBar={() => <DefaultTabBar />}
-          tabBarBackgroundColor="green"
-          tabBarActiveTextColor="white"
-          tabBarInactiveTextColor="white"
-          tabBarUnderlineStyle={{ backgroundColor: "white" }}
-          tabBarPosition="overlayBottom"
-        >
-          <MealList tabLabel="Add" />
-          <View tabLabel="Shopping List">
-          </View>
-          <View tabLabel="Meals">
-          </View>
-        </ScrollableTabView>
-        <MealList />
+        <MealList tabLabel="Add" />
       </View>
     );
   }

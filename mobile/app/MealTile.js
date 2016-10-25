@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Image, Dimensions, Text, StyleSheet } from 'react-native';
+import { AppRegistry, View, Image, Dimensions, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import sampleData from '../assets/sampleData';
 
 var width = Dimensions.get('window').width;
@@ -11,8 +11,9 @@ export default class Tile extends Component {
 
   render() {
     return (
-      <View style={styles.tile}>
-        <Image
+      <TouchableHighlight style={styles.tile}
+                          onPress={() => this.props.showInfo(this.props.recipe)}>
+        <Image 
           style={styles.picture}
           source={{uri: this.props.recipe.image}}>
           <View style={styles.textwrap}>
@@ -21,7 +22,7 @@ export default class Tile extends Component {
             </Text>
           </View>
         </Image>
-      </View>
+      </TouchableHighlight>
     );
   }
 }

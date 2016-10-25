@@ -1,8 +1,16 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, Dimensions} from 'react-native';
 import sampleData from '../assets/sampleData';
 import MealTile from './MealTile';
+
+import Searchbar from './Searchbar';
+import HeaderDisplay from './HeaderDisplay';
+import HeadBuffer from './HeadBuffer';
+import LogoDisplay from './LogoDisplay';
+import InfoDisplay from './InfoDisplay';
+
+var width = Dimensions.get('window').width;
 
 var url = 'https://api.edamam.com/search?';
 var qs = (appId, appKey, search) => {
@@ -23,7 +31,11 @@ var qs = (appId, appKey, search) => {
 export default class MealList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {fetchData: true};
+    this.state = {
+      fetchData: true,
+      displayInfo: false,
+      currentRecipe: {}
+    };
   } 
   componentWillMount () {
     // fetch(url + qs('beef'))
@@ -34,6 +46,21 @@ export default class MealList extends React.Component {
     //     })
     //   })
   }
+
+  showInfo(recipe) {
+    this.setState({
+      currentRecipe: recipe,
+      displayInfo: true
+    })
+  }
+
+  hideInfo() {
+    this.setState({
+      displayInfo: false,
+      currentRecipe: {}
+    })
+  }
+
   render() {
     if(!this.state.fetchData) {
       return (
@@ -44,24 +71,39 @@ export default class MealList extends React.Component {
         />
       </View>
       )
-    } else {
+    } 
+    else if(this.state.displayInfo) {
+      return <InfoDisplay recipe={this.state.currentRecipe} 
+                          hideInfo={this.hideInfo.bind(this)} />
+    } 
+    else {
       return (
-        <ScrollView contentContainerStyle={styles.contentContainer}
-                    showsVerticalScrollIndicator={false}
-                    alwaysBounceVertical={true}>
-          {sampleData.hits.map(meal => (
-            <MealTile recipe={meal.recipe} /> 
-          ))}
-        </ScrollView>
+        <View style={styles.container}>
+          <LogoDisplay />
+          <Searchbar />
+          <ScrollView contentContainerStyle={styles.contentContainer}
+                      showsVerticalScrollIndicator={false}
+                      alwaysBounceVertical={true}>
+            {sampleData.hits.map((meal, i) => (
+              <MealTile recipe={meal.recipe} 
+                        showInfo={this.showInfo.bind(this)}
+                        key={i}/> 
+            ))}
+          </ScrollView>
+        </View>
       )
     }
   }
 }
 
-
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center'
+  },
   contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 60,
   },
 });

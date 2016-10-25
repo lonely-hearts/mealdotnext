@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
   },
   headline: {
-    fontSize: 28,
-    marginLeft: width*0.08,
+    fontSize: 30,
+    marginLeft: width*0.05,
     marginTop: 3,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white'
