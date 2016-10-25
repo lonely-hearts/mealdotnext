@@ -12,39 +12,48 @@ import InfoDisplay from './InfoDisplay';
 
 var width = Dimensions.get('window').width;
 
-var url = 'https://api.edamam.com/search?';
-var qs = (appId, appKey, search) => {
-  var params = {
-      'app_id': appId,
-      'app_key': appKey,
-      'q': search 
-  };
+var url = 'https://calm-eyrie-10224.herokuapp.com/api/recipe/';
+// var qs = (appId, appKey, search) => {
+//   var params = {
+//       'app_id': appId,
+//       'app_key': appKey,
+//       'q': search 
+//   };
 
-  var esc = encodeURIComponent;
-  var query = Object.keys(params)
-    .map(k => esc(k) + '=' + esc(params[k]))
-    .join('&');
+//   var esc = encodeURIComponent;
+//   var query = Object.keys(params)
+//     .map(k => esc(k) + '=' + esc(params[k]))
+//     .join('&');
 
-  return query;
-}
+//   return query;
+// }
 
 export default class MealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchData: true,
+      fetchData: [],
       displayInfo: false,
+      searchString: '',
       currentRecipe: {}
     };
   } 
+
   componentWillMount () {
-    // fetch(url + qs('beef'))
-    //   .then((data) => {
-    //     // console.log('DATA, ', JSON.parse(data))
-    //     this.setState({
-    //       fetchData: JSON.stringify(data)
-    //     })
-    //   })
+    this.getData();
+  }
+
+  getData () {
+    fetch(url + this.state.searchString)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log('DATA', data[0]);
+        this.setState({
+          fetchData: data
+        });
+      }).done();
   }
 
   showInfo(recipe) {
@@ -59,6 +68,12 @@ export default class MealList extends React.Component {
       displayInfo: false,
       currentRecipe: {}
     })
+  }
+
+  search(string) {
+    this.setState({
+      searchString: string
+    }, this.getData);
   }
 
   render() {
@@ -80,12 +95,12 @@ export default class MealList extends React.Component {
       return (
         <View style={styles.container}>
           <LogoDisplay />
-          <Searchbar />
+          <Searchbar enter={this.search.bind(this)}/>
           <ScrollView contentContainerStyle={styles.contentContainer}
                       showsVerticalScrollIndicator={false}
                       alwaysBounceVertical={true}>
-            {sampleData.hits.map((meal, i) => (
-              <MealTile recipe={meal.recipe} 
+            {this.state.fetchData.map((meal, i) => (
+              <MealTile recipe={meal} 
                         showInfo={this.showInfo.bind(this)}
                         key={i}/> 
             ))}

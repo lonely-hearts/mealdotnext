@@ -22,8 +22,8 @@ export default class InfoDisplay extends Component {
                             onPress={this.props.hideInfo}>
           <Text>BACK</Text>
         </TouchableHighlight>
-        {this.props.recipe.ingredientLines.map((item,i) => (
-          <Ingredient name={item} key={i}/>
+        {this.props.recipe.ingredients.map((item,i) => (
+          <Ingredient name={item.food} key={i}/>
           ))}
         {this.props.recipe.digest.map((item,i) => (
           <Ingredient name={item.label} key={i} />

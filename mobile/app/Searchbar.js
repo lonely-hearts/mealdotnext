@@ -36,6 +36,8 @@ export default class Searchbar extends React.Component {
           onChangeText={text => this.setState({ text })}
           placeholder="Search..."
           value={this.state.text}
+          onEndEditing={() => this.props.enter(this.state.text)}
+          onSubmitEditing={() => this.props.enter(this.state.text)}
         />
       </View>
     );
