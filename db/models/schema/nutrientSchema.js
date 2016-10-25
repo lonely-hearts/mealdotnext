@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const NutrientSchema = new mongoose.Schema({
   label: String,
   tag: String,
-  hasRDI: Boolean,
+  schemaOrgTag: String,
   total: Number,
-  unit: String,
+  hasRDI: Boolean,
   daily: Number,
+  unit: String,
 });
 
 NutrientSchema.add({
