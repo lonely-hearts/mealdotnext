@@ -20,7 +20,11 @@ export default class InfoDisplay extends Component {
 
         <TouchableHighlight style={styles.tile}
                             onPress={this.props.hideInfo}>
-          <Text>BACK</Text>
+          <Text style={styles.click}>BACK</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.tile}
+                            onPress={this.props.postMeal}>
+          <Text style={styles.click}>{this.props.text}</Text>
         </TouchableHighlight>
         {this.props.recipe.ingredients.map((item,i) => (
           <Ingredient name={item.food} key={i}/>
@@ -28,6 +32,7 @@ export default class InfoDisplay extends Component {
         {this.props.recipe.digest.map((item,i) => (
           <Ingredient name={item.label} key={i} />
           ))}
+        
       </ScrollView>
     );
   }
@@ -45,4 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     marginTop: 10, 
   },
+  click: {
+    fontSize: 30
+  }
 });

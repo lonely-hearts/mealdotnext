@@ -16,6 +16,18 @@ import MealList from './app/MealList';
 import Searchbar from './app/Searchbar';
 import HeadBuffer from './app/HeadBuffer';
 import LogoDisplay from './app/LogoDisplay';
+import ShoppingList from './app/ShoppingList';
+import AddMeal from './app/AddMeal';
+
+class App extends React.Component {
+  render() {
+    return (
+      <NavigationProvider router={Router}>
+        <StackNavigation initialRoute={Router.getRoute('tabBar')} />
+      </NavigationProvider>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   main: {
@@ -34,20 +46,11 @@ const styles = StyleSheet.create({
 
 const Router = createRouter(() => ({
   tabBar: () => TabBar,
-  addMeal: () => MealList,
-  shoppingList: () => MealList,
+  addMeal: () => AddMeal,
+  shoppingList: () => ShoppingList,
   meals: () => MealList,
 }));
 
-class App extends React.Component {
-  render() {
-    return (
-      <NavigationProvider router={Router}>
-        <StackNavigation initialRoute={Router.getRoute('tabBar')} />
-      </NavigationProvider>
-    );
-  }
-}
 
 class TabBar extends React.Component {
   static route = {
@@ -56,8 +59,8 @@ class TabBar extends React.Component {
       renderBackground: () => { 
         return(
           <View style={styles.main}>
-          <HeadBuffer/>
-          <LogoDisplay />
+            <HeadBuffer/>
+            <LogoDisplay />
           </View>
         )
       }
@@ -69,17 +72,17 @@ class TabBar extends React.Component {
       <TabNavigation
         id="main"
         navigatorUID="main"
-        initialTab="addMeal">
+        initialTab="meals">
+
         <TabItem
-          id="addMeal"
-          title="Add Meal"
-          renderTitle={isSelected => this._renderTitle('Add Meal', isSelected)}
+          id="meals"
+          title="My Meals"
+          renderTitle={isSelected => this._renderTitle('My Meals', isSelected)}
           selectedStyle={styles.selectedTab}
           >
           <StackNavigation
-            id="addMeal"
-            navigatorUID="addMeal"
-            initialRoute={Router.getRoute('addMeal')}
+            id="meals"
+            initialRoute={Router.getRoute('meals')}
           />
         </TabItem>
 
@@ -96,14 +99,15 @@ class TabBar extends React.Component {
         </TabItem>
 
         <TabItem
-          id="meals"
-          title="My Meals"
-          renderTitle={isSelected => this._renderTitle('My Meals', isSelected)}
+          id="addMeal"
+          title="Add Meal"
+          renderTitle={isSelected => this._renderTitle('Add Meal', isSelected)}
           selectedStyle={styles.selectedTab}
           >
           <StackNavigation
-            id="meals"
-            initialRoute={Router.getRoute('meals')}
+            id="addMeal"
+            navigatorUID="addMeal"
+            initialRoute={Router.getRoute('addMeal')}
           />
         </TabItem>
       </TabNavigation>

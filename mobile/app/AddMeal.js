@@ -12,37 +12,22 @@ import InfoDisplay from './InfoDisplay';
 
 var width = Dimensions.get('window').width;
 
-var url = 'https://mealdotnext.herokuapp.com/api/meal/580fb932530bb17c05bc4142';
+var url = 'https://mealdotnext.herokuapp.com/api/recipe/';
 
-export default class MealList extends React.Component {
+export default class AddMeal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fetchData: [],
       displayInfo: false,
+      searchString: '',
       currentRecipe: {},
-      currentMeal: 0
+      currentRecipeId: 0
     };
   } 
 
-  componentWillMount () {
-    this.getData();
-  }
-
-  postMeal() {
-    console.log(this.state.currentMeal);
-    fetch('https://mealdotnext.herokuapp.com/api/meal/' 
-            + this.state.currentMeal, 
-            { method: 'DELETE' });
-    this.setState({
-      displayInfo: false,
-      currentRecipe: {}
-    }, this.getData);
-
-  }
-
-  getData () {
-    fetch(url)
+  getData() {
+    fetch(url + this.state.searchString)
       .then((res) => {
         return res.json();
       })
@@ -53,12 +38,29 @@ export default class MealList extends React.Component {
       }).done();
   }
 
-  showInfo(recipe, mealId) {
-    console.log('meal id on show info: ', mealId);
+  postMeal() {
+    fetch('https://mealdotnext.herokuapp.com/api/meal/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: '580fb932530bb17c05bc4142',
+        recipeId: this.state.currentRecipeId
+      })
+    });
+    this.setState({
+      displayInfo: false,
+      currentRecipe: {}
+    }, this.getData);
+  }
+
+  showInfo(recipe) {
     this.setState({
       currentRecipe: recipe,
       displayInfo: true,
-      currentMeal: mealId
+      currentRecipeId: recipe._id
     })
   }
 
@@ -67,39 +69,39 @@ export default class MealList extends React.Component {
       displayInfo: false,
       currentRecipe: {}
     }, this.getData);
-    
   }
 
+  search(string) {
+    this.setState({
+      searchString: string
+    }, this.getData);
+  }
 
   render() {
-    if(!this.state.fetchData) {
+    if(this.state.searchString === '') {
       return (
-      <View style={styles.container}>
-        <Image
-          style={{width: 100, height: 100}}
-          source={{uri: 'http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif'}}
-        />
-      </View>
-      )
+          <View style={styles.container}>
+            <Searchbar enter={this.search.bind(this)}/>
+          </View>
+        )
     } 
     else if(this.state.displayInfo) {
       return <InfoDisplay recipe={this.state.currentRecipe} 
-                          hideInfo={this.hideInfo.bind(this)}
+                          hideInfo={this.hideInfo.bind(this)} 
                           postMeal={this.postMeal.bind(this)}
-                          text='DELETE' />
+                          text='ADD'/>
     } 
     else {
       return (
         <View style={styles.container}>
+          <Searchbar enter={this.search.bind(this)}/>
           <ScrollView contentContainerStyle={styles.contentContainer}
                       showsVerticalScrollIndicator={false}
                       alwaysBounceVertical={true}>
-
             {this.state.fetchData.map((meal, i) => (
-              <MealTile recipe={meal.recipe} 
+              <MealTile recipe={meal} 
                         showInfo={this.showInfo.bind(this)}
-                        key={i}
-                        mealId={meal._id}/> 
+                        key={i}/> 
             ))}
           </ScrollView>
         </View>

@@ -12,7 +12,7 @@ export default class Tile extends Component {
   render() {
     return (
       <TouchableHighlight style={styles.tile}
-                          onPress={() => this.props.showInfo(this.props.recipe)}>
+                          onPress={() => this.props.showInfo(this.props.recipe, this.props.mealId)}>
         <Image 
           style={styles.picture}
           source={{uri: this.props.recipe.image}}>
