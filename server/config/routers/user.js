@@ -9,4 +9,7 @@ router.route('/:username')
 router.route('/')
   .post(userController.addUser);
 
+router.route('/authenticate')
+  .post(userController.authenticateUser);
+
 module.exports = router;
