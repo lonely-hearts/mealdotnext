@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import t from 'tcomb-form-native';
+import MealList from './MealList';
 
 const styles = StyleSheet.create({
   main: {
@@ -75,16 +76,27 @@ const Person = t.struct({
 const options = {};
 
 
-export default class Login extends React.Component {
-  async _onValueChange(item, selectedValue) {
-    try {
-      await AsyncStorage.setItem(item, selectedValue);
-    } catch (error) {
-      console.log(`AsyncStorage error: ${error.message}`);
-    }
+const onValueChange = async (item, selectedValue) => {
+  try {
+    await AsyncStorage.setItem(item, selectedValue);
+  } catch (error) {
+    console.log(`AsyncStorage error: ${error.message}`);
   }
+};
+
+export default class Login extends React.Component {
+  gotoNext() {
+    this.props.navigator.push({
+      component: MealList,
+      passProps: {
+        id: 'MY ID',
+      },
+    });
+  }
+
   authUser(url) {
     const value = this.refs.form.getValue();
+    console.log('VALUE', value);
     if (value) {
       fetch(url, {
         method: 'POST',
@@ -99,54 +111,60 @@ export default class Login extends React.Component {
       })
       .then(response => response.json())
       .then((responseData) => {
-        this._onValueChange('token', responseData.token);
-        this._onValueChange('userId', responseData.userId);
-        this.props.success();
+        onValueChange('token', responseData.token);
+        onValueChange('userId', responseData.userId);
+        this.gotoNext();
       })
-      .catch(error => {
-        Alert.alert('DO YOU EVEN LYFT BRUH?')
+      .catch(() => {
+        Alert.alert('DO YOU EVEN LYFT BRUH?');
       })
       .done();
     }
   }
+
   render() {
     return (
-    <View style={styles.main}>
-      <Image
-        // if background image doesn't appear test url, site may have dropped uploaded image
-        source={{uri: 'https://s21.postimg.org/azydn73pz/resized_background.jpg'}}
-        style={styles.backgroundImage}
-      >
-        <View style={styles.row}>
-          <Text style={styles.title}>Meal.next</Text>
-        </View>
-        <View style={styles.container}>
+      <View style={styles.main}>
+        <Image
+          // if background image doesn't appear test url, site may have dropped uploaded image
+          source={{ uri: 'https://s21.postimg.org/azydn73pz/resized_background.jpg' }}
+          style={styles.backgroundImage}
+        >
           <View style={styles.row}>
-            <Form
-              ref="form"
-              type={Person}
-              options={options}
-            />
+            <Text style={styles.title}>Meal.next</Text>
           </View>
-          <View style={styles.row}>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => this.authUser(loginUrl)}
-              underlayColor="limegreen"
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => this.authUser(signupUrl)}
-              underlayColor="limegreen"
-            >
-              <Text style={styles.buttonText}>Signup</Text>
-            </TouchableHighlight>
+          <View style={styles.container}>
+            <View style={styles.row}>
+              <Form
+                ref="form"
+                type={Person}
+                options={options}
+              />
+            </View>
+            <View style={styles.row}>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={() => this.authUser(loginUrl)}
+                underlayColor="limegreen"
+              >
+                <Text style={styles.buttonText}>Login</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={() => this.authUser(signupUrl)}
+                underlayColor="limegreen"
+              >
+                <Text style={styles.buttonText}>Signup</Text>
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
-      </Image>
-    </View>
+        </Image>
+      </View>
     );
   }
 }
+
+Login.propTypes = {
+  navigator: React.PropTypes.object,
+  success: React.PropTypes.func,
+};

@@ -13,6 +13,10 @@ module.exports = {
     },
     "rules": {                                                       
       "strict": [0, "global"],
-      "no-console": 0
+      "no-console": 0,
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    },
+    "env": {
+      browser: true
     }
 };
