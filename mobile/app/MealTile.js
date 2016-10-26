@@ -3,22 +3,6 @@ import { View, Image, Dimensions, Text, StyleSheet, TouchableHighlight } from 'r
 
 const width = Dimensions.get('window').width;
 
-const Tile = ({ recipe, mealId, showInfo }) => (
-  <TouchableHighlight style={styles.tile}
-                      onPress={() => showInfo(recipe, mealId)}>
-    <Image style={styles.picture}
-           source={{ uri: recipe.image }}>
-      <View style={styles.textwrap}>
-        <Text style={styles.headline}>
-          {recipe.label}
-        </Text>
-      </View>
-    </Image>
-  </TouchableHighlight>
-);
-
-export default Tile;
-
 const styles = StyleSheet.create({
   tile: {
     width: width * 0.9,
@@ -67,3 +51,23 @@ const styles = StyleSheet.create({
     },
   },
 });
+
+const Tile = ({ recipe, showInfo }) => (
+  <TouchableHighlight
+    style={styles.tile}
+    onPress={() => showInfo(recipe)}
+  >
+    <Image
+      style={styles.picture}
+      source={{ uri: recipe.image }}
+    >
+      <View style={styles.textwrap}>
+        <Text style={styles.headline}>
+          {recipe.label}
+        </Text>
+      </View>
+    </Image>
+  </TouchableHighlight>
+);
+
+export default Tile;

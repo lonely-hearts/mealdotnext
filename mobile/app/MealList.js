@@ -30,8 +30,7 @@ export default class MealList extends React.Component {
     };
     this.getData = this.getData.bind(this);
     this.postMeal = this.postMeal.bind(this);
-    this.showInfo = this.showInfo.bind(this);
-    this.hideInfo = this.hideInfo.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
   }
 
   componentWillMount() {
@@ -59,19 +58,16 @@ export default class MealList extends React.Component {
     }, this.getData);
   }
 
-  showInfo(recipe, mealId) {
-    this.setState({
-      currentRecipe: recipe,
-      displayInfo: true,
-      currentMeal: mealId,
+  gotoNext(recipe) {
+    this.props.navigator.push({
+      component: InfoDisplay,
+      passProps: {
+        recipe,
+        hideInfo: this.hideInfo,
+        postMeal: this.postMeal,
+        text: 'Remove',
+      },
     });
-  }
-
-  hideInfo() {
-    this.setState({
-      displayInfo: false,
-      currentRecipe: {},
-    }, this.getData);
   }
 
   render() {
@@ -79,7 +75,6 @@ export default class MealList extends React.Component {
       return (
         <InfoDisplay
           recipe={this.state.currentRecipe}
-          hideInfo={this.hideInfo}
           postMeal={this.postMeal}
           text="Remove"
         />
@@ -96,9 +91,8 @@ export default class MealList extends React.Component {
           {this.state.fetchData.mealsObjs.map((meal, i) => (
             <MealTile
               recipe={meal.recipe}
-              showInfo={this.showInfo}
+              showInfo={this.gotoNext}
               key={i}
-              mealId={meal._id}
             />
           ))}
         </ScrollView>
