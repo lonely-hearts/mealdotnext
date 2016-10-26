@@ -17,12 +17,13 @@ export default class InfoDisplay extends Component {
           source={{uri: this.props.recipe.image}} />
 
         
-        
-        <Button onclick={this.props.postMeal} 
-                text={this.props.text} />
-        
-        <Button onclick={this.props.hideInfo}
-                text='BACK'/>
+        <View style={styles.buttonContainer}> 
+          <Button onclick={this.props.postMeal} 
+                  text={this.props.text} />
+          
+          <Button onclick={this.props.hideInfo}
+                  text='BACK'/>
+        </View>
 
         
 
@@ -41,6 +42,13 @@ export default class InfoDisplay extends Component {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // backgroundColor: 'black',
+    justifyContent: 'space-between',
+    width: width * 0.9,
+  },
   container: {
     alignItems: 'center',
     borderRadius: 5,

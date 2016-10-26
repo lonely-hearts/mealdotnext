@@ -12,19 +12,32 @@ import {
   TabNavigation,
   TabNavigationItem as TabItem,
 } from '@exponent/ex-navigation';
-import MealList from './app/MealList';
 import Searchbar from './app/Searchbar';
 import HeadBuffer from './app/HeadBuffer';
 import LogoDisplay from './app/LogoDisplay';
-import ShoppingList from './app/ShoppingList';
-import AddMeal from './app/AddMeal';
+import Home from './app/Home';
+import NavBar from './app/NavBar';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 'MealList',
+      loggedIn: true
+    };
+  }
+
+  changePage(page) {
+    this.setState({ page: page });  
+  }
+
   render() {
     return (
-      <NavigationProvider router={Router}>
-        <StackNavigation initialRoute={Router.getRoute('tabBar')} />
-      </NavigationProvider>
+      <View style={styles.main}>
+        <HeadBuffer />
+        <Home page={this.state.page}/>
+        <NavBar changePage={this.changePage.bind(this)}/>
+      </View>
     );
   }
 }
@@ -34,6 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     flex: 1,
+    justifyContent: 'space-between'
   },
   selectedTab: {
     backgroundColor: 'green',

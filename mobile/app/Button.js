@@ -6,7 +6,8 @@ var width = Dimensions.get('window').width;
 const Button = ({text, onclick}) => (
   <TouchableHighlight style={styles.container}
                       onPress={onclick}>
-    <View style={styles.container2}>
+    <View style={styles.container2}
+          elevation={3}>
       <Text style={styles.text}> {text} </Text>
     </View>
   </TouchableHighlight>
