@@ -5,7 +5,6 @@ import AddMeal from './AddMeal';
 import MealList from './MealList';
 
 export default class Home extends React.Component {
-
 	render() {
 		if (this.props.page === 'MealList') {
 			return <MealList />
@@ -16,7 +15,3 @@ export default class Home extends React.Component {
 		}
 	}
 }
-
-const styles = StyleSheet.create({
-
-});

@@ -6,10 +6,6 @@ import Button from './Button';
 var width = Dimensions.get('window').width;
 
 export default class NavBar extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 				<View style={styles.container}>
