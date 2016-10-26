@@ -1,10 +1,10 @@
 const express = require('express');
 const userController = require('../../../db/controllers/userController.js');
+const isAuthenticated = require('../auth.js');
 
 const router = new express.Router();
 
-router.route('/:username')
-  .get(userController.getUser);
+router.get('/:username', isAuthenticated, userController.getUser);
 
 router.route('/')
   .post(userController.addUser);
