@@ -179,7 +179,3 @@ export default class Login extends React.Component {
     );
   }
 }
-
-Login.propTypes = {
-  navigator: React.PropTypes.object,
-};

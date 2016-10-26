@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   nav: {
+    top: null,
     height: 60,
+    bottom: 0,
     backgroundColor: '#efefef',
   },
   title: {
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index) {
-    if (index > 0) {
+    if (index > 1) {
       return (
         <TouchableHighlight
           underlayColor="transparent"
@@ -108,25 +110,13 @@ class App extends React.Component {
     this.renderScene = this.renderScene.bind(this);
   }
 
-  getMealList() {
-    return this.state.mealList;
-  }
-  getToken() {
-    return this.state.token;
-  }
-  getUserId() {
-    return this.state.userId;
-  }
+  getMealList() { return this.state.mealList; }
+  getToken() { return this.state.token; }
+  getUserId() { return this.state.userId; }
 
-  updateMealList(mealList) {
-    this.setState({ mealList });
-  }
-  updateToken(token) {
-    this.setState({ token });
-  }
-  updateUserId(userId) {
-    this.setState({ userId });
-  }
+  updateMealList(mealList) { this.setState({ mealList }); }
+  updateToken(token) { this.setState({ token }); }
+  updateUserId(userId) { this.setState({ userId }); }
 
   renderScene(route, navigator) {
     return (
@@ -159,21 +149,6 @@ class App extends React.Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   main: {
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     flex: 1,
-//   },
-//   selectedTab: {
-//     backgroundColor: 'green',
-//   },
-//   titleText: {},
-//   selectedTitleText: {
-//     color: 'white',
-//   },
-// });
 
 Exponent.registerRootComponent(App);
 
