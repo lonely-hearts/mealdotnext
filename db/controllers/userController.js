@@ -5,8 +5,8 @@ const secret = require('../../server/config/config.js').secret;
 const bcrypt = require('bcrypt-nodejs');
 
 exports.getUser = (req, res) => {
-  const username = req.params.username;
-  User.findOne({ username }).exec()
+  const id = req.params.id;
+  User.findOne({ _id: id }).exec()
     .then((user) => {
       if (user) {
         mealController.resolveRecipeIds(user.mealIds)
@@ -25,13 +25,13 @@ exports.getUser = (req, res) => {
       } else {
         res.status(404).end('User not found');
       }
-    });
+    }).catch(() => res.status(404).end('User not found'));
 };
 
 exports.addUser = (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  User.findOne({ username, password }).exec()
+  User.findOne({ username }).exec()
     .then((user) => {
       if (user) {
         res.status(404).end('User already exists');
@@ -48,16 +48,20 @@ exports.addUser = (req, res) => {
 
 exports.authenticateUser = (req, res) => {
   const username = req.body.username;
+  const password = req.body.password;
   User.findOne({ username }).exec()
     .then((user) => {
       if (!user) {
         res.status(404).end('Authentication failed. User/password combination not found');
-      } else if (user.password !== req.body.password) {
-        res.status(404).end('Authentication failed. User/password combination not found');
       } else {
-        const token = jwt.sign(user, secret, { expiresIn: 60 * 60 });
-        const userId = user.id;
-        res.json({ token, userId, username });
+        const salt = user.salt;
+        if (bcrypt.hashSync(password, salt) === user.password) {
+          const token = jwt.sign(user, secret, { expiresIn: 60 * 60 });
+          const userId = user.id;
+          res.json({ token, userId, username });
+        } else {
+          res.status(404).end('Authentication failed. User/password combination not found');
+        }
       }
     });
 };

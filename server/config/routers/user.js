@@ -4,7 +4,7 @@ const isAuthenticated = require('../auth.js');
 
 const router = new express.Router();
 
-router.get('/:username', isAuthenticated, userController.getUser);
+router.get('/:id', isAuthenticated, userController.getUser);
 
 router.route('/')
   .post(userController.addUser);
