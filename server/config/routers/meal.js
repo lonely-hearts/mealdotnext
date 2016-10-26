@@ -8,17 +8,16 @@ router.route('/')
     res.end('Spread the Meals!');
   });
 
-router.route('/:userId')
-  .get(mealController.getAllMeals);
-
 router.route('/')
   .post(mealController.saveMeal);
 
 router.route('/:mealId')
   .delete(mealController.deleteMeal);
 
+router.route('/:mealId')
+  .put(mealController.eatMeal);
+
 router.route('/')
   .put(mealController.updateMeal);
-
 
 module.exports = router;
