@@ -23,7 +23,6 @@ export default class MealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchData: { mealsObjs: [] },
       displayInfo: false,
       currentRecipe: {},
       currentMeal: 0,
@@ -41,10 +40,7 @@ export default class MealList extends React.Component {
     fetch(userUrl + this.props.getUserId(), { method: 'GET', headers: { 'x-access-token': this.props.getToken() } })
       .then(res => res.json())
       .then((data) => {
-        this.props.updateMealList(data.mealsObjs.map(meal => meal.recipe));
-        this.setState({
-          fetchData: data,
-        });
+        this.props.updateMealList(data.mealsObjs);
       }).done();
   }
 
@@ -56,6 +52,7 @@ export default class MealList extends React.Component {
       displayInfo: false,
       currentRecipe: {},
     }, this.getData);
+    this.gotoPrevious();
   }
 
   gotoNext(recipe) {
@@ -68,6 +65,10 @@ export default class MealList extends React.Component {
         text: 'Remove',
       },
     });
+  }
+
+  gotoPrevious(recipe) {
+    this.props.navigator.pop();
   }
 
   render() {
@@ -88,7 +89,7 @@ export default class MealList extends React.Component {
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          {this.state.fetchData.mealsObjs.map((meal, i) => (
+          {this.props.getMealList().map((meal, i) => (
             <MealTile
               recipe={meal.recipe}
               showInfo={this.gotoNext}

@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Tile = ({ recipe, showInfo }) => (
+const Tile = ({ recipe, mealId, showInfo }) => (
   <TouchableHighlight
     style={styles.tile}
-    onPress={() => showInfo(recipe)}
+    onPress={() => showInfo(recipe, mealId)}
   >
     <Image
       style={styles.picture}
