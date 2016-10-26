@@ -19,35 +19,41 @@ class App extends React.Component {
     super(props);
     this.state = {
       page: 'MealList',
-      loggedIn: false,
-      userId: 0,
+      userId: null,
+      token: null,
     };
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('userId', (err, result) => {
-      this.setState( {
-        userId: result
-      });
-    });
-
+    AsyncStorage.setItem('userId', '');
   }
-
 
   changePage(page) {
     this.setState({ page: page });  
   }
 
   login() {
-    this.setState({ loggedIn: true });
+    AsyncStorage.getItem('userId', (err, result) => {
+      this.setState( {
+        userId: result
+      });
+    });
+    AsyncStorage.getItem('token', (err, result) => {
+      this.setState( {
+        token: result
+      });
+    });
   }
 
   render() {
-    if (this.state.loggedIn) {
+    if (this.state.userId && this.state.token) {
       return (
         <View style={styles.main}>
           <HeadBuffer />
-          <Home page={this.state.page} userId={this.state.userId}/>
+          <Home 
+            page={this.state.page} 
+            userId={this.state.userId}
+            token={this.state.token}/>
           <NavBar changePage={this.changePage.bind(this)}/>
         </View>
       );

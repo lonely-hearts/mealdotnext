@@ -5,13 +5,13 @@ import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
 import LogoDisplay from './LogoDisplay';
 
-const url = 'https://mealdotnext.herokuapp.com/api/meal/';
+const url = 'https://mealdotnext4.herokuapp.com/api/user/';
 
 export default class MealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchData: [],
+      fetchData: {mealsObjs: []},
       displayInfo: false,
       currentRecipe: {},
       currentMeal: 0,
@@ -23,9 +23,11 @@ export default class MealList extends React.Component {
   }
 
   getData() {
-    fetch(url + this.props.userId)
+    fetch(url + this.props.userId, {method: 'GET', headers: { 'x-access-token': this.props.token}})
       .then(res => res.json())
       .then((data) => {
+        // console.log('mealsObjs: ', data.mealsObjs);
+        this.props.update(data.mealsObjs.map(meal => meal.recipe));
         this.setState({
           fetchData: data,
         });
@@ -33,8 +35,9 @@ export default class MealList extends React.Component {
   }
 
   postMeal() {
-    fetch(`https://mealdotnext.herokuapp.com/api/meal/${this.state.currentMeal}`,
-            { method: 'DELETE' });
+    fetch(`https://mealdotnext4.herokuapp.com/api/meal/${this.state.currentMeal}`,
+            { method: 'DELETE',
+              headers: {'x-access-token': this.props.token} });
     this.setState({
       displayInfo: false,
       currentRecipe: {},
@@ -42,7 +45,6 @@ export default class MealList extends React.Component {
   }
 
   showInfo(recipe, mealId) {
-    console.log('meal id on show info: ', mealId);
     this.setState({
       currentRecipe: recipe,
       displayInfo: true,
@@ -72,7 +74,7 @@ export default class MealList extends React.Component {
                       showsVerticalScrollIndicator={false}
                       alwaysBounceVertical={true}>
 
-            {this.state.fetchData.map((meal, i) => (
+            {this.state.fetchData.mealsObjs.map((meal, i) => (
               <MealTile recipe={meal.recipe} 
                         showInfo={this.showInfo.bind(this)}
                         key={i}

@@ -12,7 +12,7 @@ import InfoDisplay from './InfoDisplay';
 
 var width = Dimensions.get('window').width;
 
-var url = 'https://mealdotnext.herokuapp.com/api/recipe/';
+var url = 'https://mealdotnext4.herokuapp.com/api/recipe/';
 
 export default class AddMeal extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class AddMeal extends React.Component {
   } 
 
   getData() {
-    fetch(url + this.state.searchString)
+    fetch(url + this.state.searchString, {method: 'GET', headers: {'x-access-token': this.props.token}})
       .then((res) => {
         return res.json();
       })
@@ -39,11 +39,12 @@ export default class AddMeal extends React.Component {
   }
 
   postMeal() {
-    fetch('https://mealdotnext.herokuapp.com/api/meal/', {
+    fetch('https://mealdotnext4.herokuapp.com/api/meal/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'x-access-token': this.props.token,
       },
       body: JSON.stringify({
         userId: this.props.userId,

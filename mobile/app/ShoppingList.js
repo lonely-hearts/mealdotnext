@@ -3,8 +3,6 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Ingredient from './Ingredient.js';
 
-var url = 'https://mealdotnext.herokuapp.com/api/meal/';
-
 export default class ShoppingList extends React.Component {
 	constructor(props) {
     super(props);
@@ -15,17 +13,10 @@ export default class ShoppingList extends React.Component {
   }
 
   componentWillMount() {
-  	fetch(url + this.props.userId)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-      	// console.log('DATA', data[0]);
-      	var shoppingList = this.compileList(data.map(item => item.recipe));
-        this.setState({
-          shoppingList: shoppingList
-        });
-      }).done();
+    console.log('meals obj in shopping list: ', this.props.mealList);
+  	this.setState({
+      shoppingList: this.compileList(this.props.mealList) 
+    });
   }
 
   compileList(data) {
@@ -47,7 +38,6 @@ export default class ShoppingList extends React.Component {
   	for ( var ingredient in result) {
   		list.push([ingredient, result[ingredient].quantity, result[ingredient].measure])
   	}
-  	console.log(list);
   	return list;
   }
 

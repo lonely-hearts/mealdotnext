@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   },
 });
 // ENV Variables
-const loginUrl = 'https://mealdotnext2.herokuapp.com/api/user/authenticate';
-const signupUrl = 'https://mealdotnext2.herokuapp.com/api/user';
+const loginUrl = 'https://mealdotnext4.herokuapp.com/api/user/authenticate';
+const signupUrl = 'https://mealdotnext4.herokuapp.com/api/user';
 const Form = t.form.Form;
 const Person = t.struct({
   username: t.String,
@@ -72,7 +72,7 @@ export default class Login extends React.Component {
       })
       .then(response => response.json())
       .then((responseData) => {
-        this._onValueChange('id_token', responseData.token);
+        this._onValueChange('token', responseData.token);
         this._onValueChange('userId', responseData.userId);
         this.props.success();
       })
