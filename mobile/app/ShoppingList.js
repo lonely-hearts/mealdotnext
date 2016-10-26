@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Ingredient from './Ingredient.js';
 
-var url = 'https://mealdotnext.herokuapp.com/api/meal/580fb932530bb17c05bc4142';
+var url = 'https://mealdotnext.herokuapp.com/api/meal/';
 
 export default class ShoppingList extends React.Component {
 	constructor(props) {
@@ -15,7 +15,7 @@ export default class ShoppingList extends React.Component {
   }
 
   componentWillMount() {
-  	fetch(url)
+  	fetch(url + this.props.userId)
       .then((res) => {
         return res.json();
       })

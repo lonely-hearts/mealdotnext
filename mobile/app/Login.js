@@ -5,7 +5,7 @@ import {
   Text,
   View,
   TouchableHighlight,
-  AlertIOS,
+  Alert
 } from 'react-native';
 import t from 'tcomb-form-native';
 
@@ -73,9 +73,11 @@ export default class Login extends React.Component {
       .then(response => response.json())
       .then((responseData) => {
         this._onValueChange('id_token', responseData.token);
-        AlertIOS.alert(
-          'Success!'
-        );
+        this._onValueChange('userId', responseData.userId);
+        this.props.success();
+      })
+      .catch(error => {
+        Alert.alert('DO YOU EVEN LYFT BRUH?')
       })
       .done();
     }

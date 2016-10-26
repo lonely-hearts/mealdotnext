@@ -46,7 +46,7 @@ export default class AddMeal extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userId: '580fb932530bb17c05bc4142',
+        userId: this.props.userId,
         recipeId: this.state.currentRecipeId
       })
     });

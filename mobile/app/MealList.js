@@ -5,7 +5,7 @@ import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
 import LogoDisplay from './LogoDisplay';
 
-const url = 'https://mealdotnext.herokuapp.com/api/meal/580fb932530bb17c05bc4142';
+const url = 'https://mealdotnext.herokuapp.com/api/meal/';
 
 export default class MealList extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class MealList extends React.Component {
   }
 
   getData() {
-    fetch(url)
+    fetch(url + this.props.userId)
       .then(res => res.json())
       .then((data) => {
         this.setState({
