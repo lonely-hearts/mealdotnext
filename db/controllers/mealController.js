@@ -62,6 +62,15 @@ exports.resolveRecipeIds = (mealIdArr) => {
   });
 };
 
+exports.resolveMealIds = (mealIdArr) => {
+  const mealObjs = mealIdArr.map(mealId => Meal.findOne({ _id: mealId })
+  .exec()
+  .then(mealObj => mealObj));
+  return Promise.all(mealObjs)
+    .then(mealObjsArr => mealObjsArr);
+};
+
+
 exports.updateMeal = (req, res) => {
   Meal.findByIdAndUpdate(req.body.mealId, { $set: { haveIngredient: req.body.haveIngredient } },
     { new: true }, (err, meal) => {

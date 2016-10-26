@@ -11,12 +11,24 @@ exports.getUser = (req, res) => {
       if (user) {
         mealController.resolveRecipeIds(user.mealIds)
         .then((recipeObjs) => {
-          user.mealsObjs = recipeObjs;
-          return mealController.resolveRecipeIds(user.pastMealIds);
+          return mealController.resolveMealIds(user.mealIds)
+            .then((mealObjsArr) => {
+              mealObjsArr.forEach((meal, index) => {
+                meal.recipe = recipeObjs[index];
+              });
+              user.mealsObjs = mealObjsArr;
+              return mealController.resolveRecipeIds(user.pastMealIds);
+            });
         })
-        .then((pastMealsObjs) => {
-          user.pastMealsObjs = pastMealsObjs;
-          return user;
+        .then((pastRecipeObjs) => {
+          return mealController.resolveMealIds(user.mealIds)
+            .then((pastMealObjsArr) => {
+              pastMealObjsArr.forEach((meal, index) => {
+                meal.recipe = pastRecipeObjs[index];
+              });
+              user.pastMealsObjs = pastMealObjsArr;
+              return user;
+            });
         })
         .then((updatedUser) => {
           console.log(updatedUser);
