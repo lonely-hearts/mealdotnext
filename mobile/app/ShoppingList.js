@@ -1,8 +1,11 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
 import Ingredient from './Ingredient.js';
 import LogoDisplay from './LogoDisplay';
+import Column from './Column';
+
+var width = Dimensions.get('window').width;
 
 export default class ShoppingList extends React.Component {
 	constructor(props) {
@@ -14,7 +17,6 @@ export default class ShoppingList extends React.Component {
   }
 
   componentWillMount() {
-    console.log('meals obj in shopping list: ', this.props.mealList);
   	this.setState({
       shoppingList: this.compileList(this.props.mealList) 
     });
@@ -46,9 +48,29 @@ export default class ShoppingList extends React.Component {
     return (
       <View style={styles.container}>
         <LogoDisplay />
-      	{this.state.shoppingList.map( (ingredient, i) => (
-      		<Text key={i}> {ingredient[0] + ': ' + ingredient[1] + ' ' + ingredient[2]} </Text>
-      		))}
+        <ScrollView contentContainerStyle={styles.container}
+                    showsVerticalScrollIndicator={false}
+                    alwaysBounceVertical={true}>
+          <View style={styles.table}>
+            <Column 
+              data={this.state.shoppingList} 
+              name='Ingredient'
+              index={0} 
+            />
+            <Column 
+              data={this.state.shoppingList} 
+              name='Qty'
+              index={1} 
+              alignRight={true}
+            />
+            <Column 
+              data={this.state.shoppingList} 
+              name='Unit'
+              index={2} 
+              alignRight={true}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -59,5 +81,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-
+  table: {
+    width: width * 0.9,
+    marginBottom: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 5,
+    padding: 5,
+    marginTop: 10,
+  },
 });

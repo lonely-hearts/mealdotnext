@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Image, Dimensions, Text, StyleSheet } from 'react-native';
-import sampleData from '../assets/sampleData';
+import { View, Image, Dimensions, Text, StyleSheet } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
