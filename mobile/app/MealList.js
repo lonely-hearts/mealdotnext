@@ -11,7 +11,7 @@ export default class MealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchData: {mealsObjs: []},
+      fetchData: { mealsObjs: [] },
       displayInfo: false,
       currentRecipe: {},
       currentMeal: 0,
@@ -23,7 +23,7 @@ export default class MealList extends React.Component {
   }
 
   getData() {
-    fetch(userUrl + this.props.userId, {method: 'GET', headers: { 'x-access-token': this.props.token}})
+    fetch(userUrl + this.props.getuserId, {method: 'GET', headers: { 'x-access-token': this.props.token}})
       .then(res => res.json())
       .then((data) => {
         this.props.update(data.mealsObjs.map(meal => meal.recipe));
@@ -48,7 +48,7 @@ export default class MealList extends React.Component {
       currentRecipe: recipe,
       displayInfo: true,
       currentMeal: mealId,
-    })
+    });
   }
 
   hideInfo() {

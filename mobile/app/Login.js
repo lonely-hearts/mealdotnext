@@ -85,18 +85,30 @@ const onValueChange = async (item, selectedValue) => {
 };
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.userInfo = null;
+  }
+
   gotoNext() {
     this.props.navigator.push({
       component: MealList,
       passProps: {
-        id: 'MY ID',
       },
     });
   }
 
+  // login() {
+  //   AsyncStorage.getItem('userId', (err, result) => {
+  //     this.setState( { userId: result });
+  //   });
+  //   AsyncStorage.getItem('token', (err, result) => {
+  //     this.setState( { token: result });
+  //   });
+  // }
+
   authUser(url) {
     const value = this.refs.form.getValue();
-    console.log('VALUE', value);
     if (value) {
       fetch(url, {
         method: 'POST',
@@ -111,8 +123,12 @@ export default class Login extends React.Component {
       })
       .then(response => response.json())
       .then((responseData) => {
-        onValueChange('token', responseData.token);
-        onValueChange('userId', responseData.userId);
+        const token = responseData.token;
+        const userId = responseData.userId;
+        onValueChange('token', token);
+        onValueChange('userId', userId);
+        this.props.updateToken(token);
+        this.props.updateUserId(userId);
         this.gotoNext();
       })
       .catch(() => {
@@ -166,5 +182,4 @@ export default class Login extends React.Component {
 
 Login.propTypes = {
   navigator: React.PropTypes.object,
-  success: React.PropTypes.func,
 };
