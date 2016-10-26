@@ -1,11 +1,11 @@
-
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
 import LogoDisplay from './LogoDisplay';
 
-const url = 'https://mealdotnext4.herokuapp.com/api/user/';
+const userUrl = 'https://mealdotnext4.herokuapp.com/api/user/';
+const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
 
 export default class MealList extends React.Component {
   constructor(props) {
@@ -23,10 +23,9 @@ export default class MealList extends React.Component {
   }
 
   getData() {
-    fetch(url + this.props.userId, {method: 'GET', headers: { 'x-access-token': this.props.token}})
+    fetch(userUrl + this.props.userId, {method: 'GET', headers: { 'x-access-token': this.props.token}})
       .then(res => res.json())
       .then((data) => {
-        // console.log('mealsObjs: ', data.mealsObjs);
         this.props.update(data.mealsObjs.map(meal => meal.recipe));
         this.setState({
           fetchData: data,
@@ -35,7 +34,7 @@ export default class MealList extends React.Component {
   }
 
   postMeal() {
-    fetch(`https://mealdotnext4.herokuapp.com/api/meal/${this.state.currentMeal}`,
+    fetch(mealUrl + this.state.currentMeal,
             { method: 'DELETE',
               headers: {'x-access-token': this.props.token} });
     this.setState({
@@ -64,7 +63,7 @@ export default class MealList extends React.Component {
       return <InfoDisplay recipe={this.state.currentRecipe}
                           hideInfo={this.hideInfo.bind(this)}
                           postMeal={this.postMeal.bind(this)}
-                          text='DELETE' />
+                          text='Remove' />
     } 
     else {
       return (

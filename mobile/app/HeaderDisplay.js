@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Image, Dimensions, Text, StyleSheet } from 'react-native';
-import sampleData from '../assets/sampleData';
+import { View, Dimensions, Text, StyleSheet } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
-export default class HeaderDisplay extends Component {
-  constructor(props) {
-    super(props);
-  } 
-	render() {
-    return (
-      <View style={styles.logo}>
-        <Text style={styles.headline}>
-          {this.props.recipe.label}
-        </Text>
-      </View>
-    );
-  }
-}
+var HeaderDisplay = ({recipe}) => (
+  <View style={styles.logo}>
+    <Text style={styles.headline}>
+      {recipe.label}
+    </Text>
+  </View>
+)
+
+export default HeaderDisplay;
 
 const styles = StyleSheet.create({
   logo: {
@@ -26,11 +20,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderBottomWidth: 2,
     borderColor: 'gray',
+    alignItems: 'center',
   },
   headline: {
     fontSize: 30,
-    marginLeft: width*0.05,
-    marginTop: 3,
+    marginTop: 2,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white'
   }

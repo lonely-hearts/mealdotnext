@@ -22,7 +22,7 @@ export default class InfoDisplay extends Component {
                   text={this.props.text} />
           
           <Button onclick={this.props.hideInfo}
-                  text='BACK'/>
+                  text='Back'/>
         </View>
 
         
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // backgroundColor: 'black',
     justifyContent: 'space-between',
     width: width * 0.9,
   },

@@ -7,16 +7,11 @@ import MealList from './MealList';
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			mealList: []
-		}
+		this.state = { mealList: [] }
 	}
 
 	updateMealList(meals) {
-		console.log('update meal list', meals);
-		this.setState({
-			mealList: meals
-		})
+		this.setState({ mealList: meals })
 	}
 
 	render() {

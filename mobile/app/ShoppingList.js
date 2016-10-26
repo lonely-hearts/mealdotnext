@@ -2,6 +2,7 @@ import Exponent from 'exponent';
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Ingredient from './Ingredient.js';
+import LogoDisplay from './LogoDisplay';
 
 export default class ShoppingList extends React.Component {
 	constructor(props) {
@@ -43,7 +44,8 @@ export default class ShoppingList extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
+        <LogoDisplay />
       	{this.state.shoppingList.map( (ingredient, i) => (
       		<Text key={i}> {ingredient[0] + ': ' + ingredient[1] + ' ' + ingredient[2]} </Text>
       		))}
@@ -51,3 +53,11 @@ export default class ShoppingList extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+
+});

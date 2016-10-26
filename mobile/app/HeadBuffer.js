@@ -3,13 +3,11 @@ import { View, Dimensions, StyleSheet } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
-export default class HeadBuffer extends Component {
-	render() {
-    return (
-      <View style={styles.buffer} />
-    );
-  }
-}
+const HeadBuffer = () => (
+  <View style={styles.buffer} />
+)
+
+export default HeadBuffer;
 
 const styles = StyleSheet.create({
   buffer: {

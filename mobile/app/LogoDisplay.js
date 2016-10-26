@@ -4,17 +4,15 @@ import sampleData from '../assets/sampleData';
 
 var width = Dimensions.get('window').width;
 
-export default class LogoDisplay extends Component {
-	render() {
-    return (
-      <View style={styles.logo}>
-        <Text style={styles.headline}>
-          Meal.Next
-        </Text>
-      </View>
-    );
-  }
-}
+const LogoDisplay = () => (
+  <View style={styles.logo}>
+    <Text style={styles.headline}>
+      Meal.Next
+    </Text>
+  </View>
+)
+
+export default LogoDisplay;
 
 const styles = StyleSheet.create({
   logo: {
@@ -23,11 +21,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderBottomWidth: 2,
     borderColor: 'gray',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
   headline: {
     fontSize: 30,
-    marginLeft: width*0.08,
-    marginTop: 3,
+    marginTop: 2,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white'
   }

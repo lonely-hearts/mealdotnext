@@ -1,15 +1,8 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  AsyncStorage,
-} from 'react-native';
+import { StyleSheet, View, AsyncStorage, } from 'react-native';
 
-import Searchbar from './app/Searchbar';
 import HeadBuffer from './app/HeadBuffer';
-import LogoDisplay from './app/LogoDisplay';
 import Home from './app/Home';
 import NavBar from './app/NavBar';
 import Login from './app/Login';
@@ -24,24 +17,16 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
-    AsyncStorage.setItem('userId', '');
-  }
-
   changePage(page) {
     this.setState({ page: page });  
   }
 
   login() {
     AsyncStorage.getItem('userId', (err, result) => {
-      this.setState( {
-        userId: result
-      });
+      this.setState( { userId: result });
     });
     AsyncStorage.getItem('token', (err, result) => {
-      this.setState( {
-        token: result
-      });
+      this.setState( { token: result });
     });
   }
 
@@ -59,7 +44,7 @@ class App extends React.Component {
       );
     }
     else {
-      return (<Login success={this.login.bind(this)}/>)
+      return <Login success={this.login.bind(this)}/>
     }
   }
 }

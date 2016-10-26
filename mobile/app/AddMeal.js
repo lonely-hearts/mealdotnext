@@ -1,18 +1,16 @@
 import Exponent from 'exponent';
 import React from 'react';
 import {StyleSheet, Text, View, Image, ScrollView, Dimensions} from 'react-native';
-import sampleData from '../assets/sampleData';
 import MealTile from './MealTile';
-
 import Searchbar from './Searchbar';
 import HeaderDisplay from './HeaderDisplay';
-import HeadBuffer from './HeadBuffer';
 import LogoDisplay from './LogoDisplay';
 import InfoDisplay from './InfoDisplay';
 
 var width = Dimensions.get('window').width;
 
-var url = 'https://mealdotnext4.herokuapp.com/api/recipe/';
+var recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
+var mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/'
 
 export default class AddMeal extends React.Component {
   constructor(props) {
@@ -27,19 +25,20 @@ export default class AddMeal extends React.Component {
   } 
 
   getData() {
-    fetch(url + this.state.searchString, {method: 'GET', headers: {'x-access-token': this.props.token}})
-      .then((res) => {
-        return res.json();
+    fetch(recipeUrl + this.state.searchString, {
+      method: 'GET', 
+      headers: {'x-access-token': this.props.token}
       })
-      .then((data) => {
-        this.setState({
-          fetchData: data
-        });
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          this.setState({ fetchData: data });
+        }
       }).done();
   }
 
   postMeal() {
-    fetch('https://mealdotnext4.herokuapp.com/api/meal/', {
+    fetch(mealUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -51,6 +50,7 @@ export default class AddMeal extends React.Component {
         recipeId: this.state.currentRecipeId
       })
     });
+    
     this.setState({
       displayInfo: false,
       currentRecipe: {}
@@ -81,20 +81,22 @@ export default class AddMeal extends React.Component {
   render() {
     if(this.state.searchString === '') {
       return (
-          <View style={styles.container}>
-            <Searchbar enter={this.search.bind(this)}/>
-          </View>
-        )
+        <View style={styles.container}>
+          <LogoDisplay />
+          <Searchbar enter={this.search.bind(this)}/>
+        </View>
+      )
     } 
     else if(this.state.displayInfo) {
       return <InfoDisplay recipe={this.state.currentRecipe} 
                           hideInfo={this.hideInfo.bind(this)} 
                           postMeal={this.postMeal.bind(this)}
-                          text='ADD'/>
+                          text='Add'/>
     } 
     else {
       return (
         <View style={styles.container}>
+          <LogoDisplay />
           <Searchbar enter={this.search.bind(this)}/>
           <ScrollView contentContainerStyle={styles.contentContainer}
                       showsVerticalScrollIndicator={false}
