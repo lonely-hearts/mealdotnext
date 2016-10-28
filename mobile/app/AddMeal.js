@@ -1,22 +1,16 @@
-import Exponent from 'exponent';
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  Image,
   ScrollView,
-  Dimensions,
 } from 'react-native';
 import MealTile from './MealTile';
 import Searchbar from './Searchbar';
-import HeaderDisplay from './HeaderDisplay';
 import LogoDisplay from './LogoDisplay';
 import InfoDisplay from './InfoDisplay';
 
-const width = Dimensions.get('window').width;
 const recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
-const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/'
+const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
 
 const styles = StyleSheet.create({
   container: {

@@ -40,7 +40,6 @@ export default class MealList extends React.Component {
   }
 
   postMeal(recipeId, mealId) {
-    console.log('mealId', mealId);
     fetch(mealUrl + mealId,
       {
         method: 'DELETE',
@@ -78,7 +77,7 @@ export default class MealList extends React.Component {
               recipe={meal.recipe}
               showInfo={this.gotoNext}
               key={i}
-              mealId={meal._id}
+              mealId={meal._id} // eslint-disable-line no-underscore-dangle
             />
           ))}
         </ScrollView>

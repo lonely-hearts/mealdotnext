@@ -12,7 +12,6 @@ import Column from './Column';
 
 const width = Dimensions.get('window').width;
 
-
 const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
@@ -48,6 +47,7 @@ const styles = StyleSheet.create({
   },
 });
 
+/* eslint-disable no-param-reassign */
 const compileNutrition = (data) => {
   const result = [];
   data.forEach((item) => {
@@ -67,6 +67,7 @@ const compileNutrition = (data) => {
   });
   return result;
 };
+/* eslint-enable no-param-reassign */
 
 const InfoDisplay = props => (
   <View style={styles.container}>
@@ -78,11 +79,11 @@ const InfoDisplay = props => (
       />
       <View style={styles.buttonContainer}>
         <Button
-          onclick={() => { props.postMeal(props.recipe._id, props.mealId); }}
+          onclick={() => { props.postMeal(props.recipe._id, props.mealId); }} // eslint-disable-line
           text={props.text}
         />
         <Button
-          onclick={props.navigation.pop()}
+          onclick={() => { props.navigation.pop(); }}
           text="Back"
         />
       </View>

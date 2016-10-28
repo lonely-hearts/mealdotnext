@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Image, Dimensions, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 const width = Dimensions.get('window').width;
