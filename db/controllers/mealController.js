@@ -49,23 +49,19 @@ exports.eatMeal = (req, res) => {
   });
 };
 
-exports.resolveRecipeIds = (mealIdArr) => {
-  const mealObjs = mealIdArr.map(mealId => Meal.findOne({ _id: mealId })
+exports.resolveRecipeIds = recipeId =>
+  Recipe.findOne({ _id: recipeId })
   .exec()
-  .then(mealObj => mealObj));
-  return Promise.all(mealObjs)
-  .then((mealObjsArr) => {
-    const recipeIds = mealObjsArr.map(mealObj => Recipe.findOne({ _id: mealObj.recipeId })
-    .exec()
-    .then((recipeObj => recipeObj)));
-    return Promise.all(recipeIds).then(recipeObjs => recipeObjs);
-  });
-};
+  .then((recipeObj => recipeObj));
+
 
 exports.resolveMealIds = (mealIdArr) => {
   const mealObjs = mealIdArr.map(mealId => Meal.findOne({ _id: mealId })
   .exec()
-  .then(mealObj => mealObj));
+  .then(mealObj => exports.resolveRecipeIds(mealObj.recipeId).then((recipeObj) => {
+    mealObj.recipe = recipeObj;
+    return mealObj;
+  })));
   return Promise.all(mealObjs)
     .then(mealObjsArr => mealObjsArr);
 };

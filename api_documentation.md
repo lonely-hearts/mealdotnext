@@ -46,6 +46,27 @@ Response: 200 and updated meal object
 
 --------------------------------------------------------------
 
+###User
+####Get User data with data of Meals
+Method: GET
+Path: /api/user/"userId"
+Input: userId through the url
+Response: 200 and user Object
+
+####Register User
+Method: POST
+Path: /api/user/
+Input: JSON with property username and password
+Response: 200 and Object with token, username and userId
+
+####Login User
+Method: POST
+Path: /api/user/authenticate
+Input: JSON with property username and password
+Response: 200 and Object with properties token, username and userId
+
+--------------------------------------------------------------
+
 
 
 

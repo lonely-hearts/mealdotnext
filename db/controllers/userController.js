@@ -5,31 +5,20 @@ const secret = require('../../server/config/config.js').secret;
 const bcrypt = require('bcrypt-nodejs');
 
 exports.getUser = (req, res) => {
-  const id = req.params.id;
-  User.findOne({ _id: id }).exec()
+  User.findOne({ _id: req.params.id }).exec()
     .then((user) => {
       if (user) {
-        mealController.resolveRecipeIds(user.mealIds)
-        .then((recipeObjs) => {
-          return mealController.resolveMealIds(user.mealIds)
-            .then((mealObjsArr) => {
-              mealObjsArr.forEach((meal, index) => {
-                meal.recipe = recipeObjs[index];
-              });
-              user.mealsObjs = mealObjsArr;
-              return mealController.resolveRecipeIds(user.pastMealIds);
-            });
+        mealController.resolveMealIds(user.mealIds)
+        .then((mealObjs) => {
+          user.mealsObjs = mealObjs;
+          return user;
         })
-        .then((pastRecipeObjs) => {
-          return mealController.resolveMealIds(user.mealIds)
-            .then((pastMealObjsArr) => {
-              pastMealObjsArr.forEach((meal, index) => {
-                meal.recipe = pastRecipeObjs[index];
-              });
-              user.pastMealsObjs = pastMealObjsArr;
-              return user;
-            });
-        })
+        .then(updatedUser =>
+        mealController.resolveMealIds(updatedUser.pastMealIds)
+        .then((pastMealObjsArr) => {
+          user.pastMealsObjs = pastMealObjsArr;
+          return user;
+        }))
         .then((updatedUser) => {
           console.log(updatedUser);
           res.json(updatedUser);
@@ -90,7 +79,8 @@ exports.addUserMeal = (userId, mealId) => User.findOne({ _id: userId })
       foundUser.mealIds.push(mealId);
       return User.findByIdAndUpdate({ _id: userId }, { $set: { mealIds: foundUser.mealIds } }, { new: true });
     })
-    .then(updatedUser => updatedUser);
+    .then(updatedUser => updatedUser)
+    .catch(error => error);
 
 exports.eatUserMeal = (userId, mealId) => User.findOne({ _id: userId })
     .then((foundUser) => {
