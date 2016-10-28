@@ -1,28 +1,38 @@
-
+// https://github.com/facebook/react-native/blob/b998e5a7b74905b30b1137a02e14cd5e6f97fccc/Libraries/CustomComponents/Navigator/Navigator.js
 import React from 'react';
-import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import Button from './Button';
+import MealList from './MealList';
+import ShoppingList from './ShoppingList';
+import AddMeal from './AddMeal';
 
-var width = Dimensions.get('window').width;
-
-export default class NavBar extends React.Component {
-	render() {
-		return (
-				<View style={styles.container}>
-					<Button text='Meals' onclick={() => this.props.changePage('MealList')}/>
-					<Button text='Shop' onclick={() => this.props.changePage('ShoppingList')}/>
-					<Button text='Add' onclick={() => this.props.changePage('AddMeal')}/>
-				</View>
-			)
-	}
-}
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-	container: {
-		height: 40,
-		width: width,
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		justifyContent: 'space-between',
-	}
+  container: {
+    width,
+    height: 40,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
 });
+
+const moveTo = (navigator, component) => {
+  navigator.push({ component });
+};
+
+const NavBar = (props) => {
+  if (props.navigator.getCurrentRoutes().length > 1) {
+    return (
+      <View style={styles.container}>
+        <Button text="Meals" onclick={() => moveTo(props.navigator, MealList)} />
+        <Button text="Shop" onclick={() => moveTo(props.navigator, ShoppingList)} />
+        <Button text="Add" onclick={() => moveTo(props.navigator, AddMeal)} />
+      </View>
+    );
+  }
+  return null;
+};
+
+export default NavBar;

@@ -1,21 +1,11 @@
-import React, { Component } from 'react';
-import { View, Image, Dimensions, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Dimensions, Text, StyleSheet } from 'react-native';
 
-var width = Dimensions.get('window').width;
-
-const LogoDisplay = () => (
-  <View style={styles.logo}>
-    <Text style={styles.headline}>
-      Meal.Next
-    </Text>
-  </View>
-)
-
-export default LogoDisplay;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   logo: {
-    width: width, 
+    width,
     height: 44,
     backgroundColor: 'green',
     borderBottomWidth: 2,
@@ -27,6 +17,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 2,
     backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white'
-  }
+    color: 'white',
+  },
 });
+
+const LogoDisplay = () => (
+  <View style={styles.logo}>
+    <Text style={styles.headline}>Meal.Next</Text>
+  </View>
+);
+
+export default LogoDisplay;
