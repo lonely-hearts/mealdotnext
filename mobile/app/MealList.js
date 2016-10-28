@@ -32,22 +32,24 @@ export default class MealList extends React.Component {
   }
 
   getData() {
-    fetch(userUrl + this.props.getUserId(), { method: 'GET', headers: { 'x-access-token': this.props.getToken() } })
-      .then(res => res.json())
-      .then((data) => {
-        this.props.updateMealList(data.mealsObjs);
-      }).done();
+    fetch(userUrl + this.props.getUserId(), {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      this.props.updateMealList(data.mealsObjs);
+    }).done();
   }
 
   postMeal(recipeId, mealId) {
-    fetch(mealUrl + mealId,
-      {
-        method: 'DELETE',
-        headers: { 'x-access-token': this.props.getToken() },
-      })
-      .then(() => {
-        this.props.navigator.push({ component: MealList });
-      });
+    fetch(mealUrl + mealId, {
+      method: 'DELETE',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(() => {
+      this.props.navigator.push({ component: MealList });
+    });
   }
 
   gotoNext(recipe, mealId) {
@@ -56,7 +58,6 @@ export default class MealList extends React.Component {
       passProps: {
         recipe,
         mealId,
-        hideInfo: this.hideInfo,
         postMeal: this.postMeal,
         text: 'Remove',
       },

@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Dimensions, Text, StyleSheet, TouchableHighlight } from 'react-native';
-
-const width = Dimensions.get('window').width;
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {

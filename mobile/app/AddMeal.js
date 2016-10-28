@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import MealTile from './MealTile';
 import Searchbar from './Searchbar';
 import LogoDisplay from './LogoDisplay';
@@ -27,12 +23,6 @@ const styles = StyleSheet.create({
 export default class AddMeal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayInfo: false,
-      searchString: '',
-      currentRecipe: {},
-      currentRecipeId: 0,
-    };
     this.getData = this.getData.bind(this);
     this.postMeal = this.postMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
@@ -62,9 +52,10 @@ export default class AddMeal extends React.Component {
         userId: this.props.getUserId(),
         recipeId,
       }),
+    })
+    .then(() => {
+      this.gotoPrevious();
     });
-
-    this.gotoPrevious();
   }
 
   gotoNext(recipe) {
@@ -72,7 +63,6 @@ export default class AddMeal extends React.Component {
       component: InfoDisplay,
       passProps: {
         recipe,
-        hideInfo: this.hideInfo,
         postMeal: this.postMeal,
         text: 'Add',
       },
