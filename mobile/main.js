@@ -13,11 +13,13 @@ class App extends React.Component {
       token: null,
       mealList: [],
       searchRecipes: [],
+      shoppingList: [],
     };
     this.getMealList = this.getMealList.bind(this);
     this.getToken = this.getToken.bind(this);
     this.getUserId = this.getUserId.bind(this);
     this.getSearchRecipes = this.getSearchRecipes.bind(this);
+
     this.updateMealList = this.updateMealList.bind(this);
     this.updateToken = this.updateToken.bind(this);
     this.updateUserId = this.updateUserId.bind(this);

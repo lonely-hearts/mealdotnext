@@ -1,80 +1,37 @@
-import Exponent from 'exponent';
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
-import Ingredient from './Ingredient.js';
+import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
 import LogoDisplay from './LogoDisplay';
 import Column from './Column';
 
-var width = Dimensions.get('window').width;
+const width = Dimensions.get('window').width;
 
-export default class ShoppingList extends React.Component {
-	constructor(props) {
-    super(props);
-    this.state = {
-      fetchData: [],
-      shoppingList: []
-    };
-  }
+const compileList = (meals) => {
+  const result = {};
+  const list = [];
+  const recipes = meals.map(meal => meal.recipe);
 
-  componentWillMount() {
-  	this.setState({
-      shoppingList: this.compileList(this.props.mealList) 
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.food in result) {
+        result[ingredient.food].quantity += ingredient.quantity;
+      } else {
+        result[ingredient.food] = {
+          quantity: ingredient.quantity,
+          measure: ingredient.measure,
+        };
+      }
     });
-  }
+  });
 
-  compileList(data) {
-  	var result = {};
-  	var list = [];
-  	data.forEach(recipe => {
-  		recipe.ingredients.forEach(ingredient => {
-  			if (ingredient.food in result) {
-  				result[ingredient.food].quantity += ingredient.quantity;
-  			}
-  			else {
-  				result[ingredient.food] = {
-  					quantity: ingredient.quantity,
-  					measure: ingredient.measure
-  				}
-  			}
-  		})
-  	})
-  	for ( var ingredient in result) {
-  		list.push([ingredient, result[ingredient].quantity, result[ingredient].measure])
-  	}
-  	return list;
+  const ingredients = Object.keys(result);
+  for (let i = 0; i < ingredients.length; i += 1) {
+    const ingredient = ingredients[i];
+    const amount = result[ingredient];
+    list.push([ingredient, amount.quantity, amount.measure]);
   }
+  return list;
+};
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <LogoDisplay />
-        <ScrollView contentContainerStyle={styles.container}
-                    showsVerticalScrollIndicator={false}
-                    alwaysBounceVertical={true}>
-          <View style={styles.table}>
-            <Column 
-              data={this.state.shoppingList} 
-              name='Ingredient'
-              index={0} 
-            />
-            <Column 
-              data={this.state.shoppingList} 
-              name='Qty'
-              index={1} 
-              alignRight={true}
-            />
-            <Column 
-              data={this.state.shoppingList} 
-              name='Unit'
-              index={2} 
-              alignRight={true}
-            />
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -93,3 +50,44 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default class ShoppingList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shoppingList = compileList(this.props.getMealList());
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <LogoDisplay />
+        <ScrollView
+          contentContainerStyle={styles.container}
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical
+        >
+          <View style={styles.table}>
+            <Column
+              data={this.shoppingList}
+              name="Ingredient"
+              index={0}
+            />
+            <Column
+              data={this.shoppingList}
+              name="Qty"
+              index={1}
+              alignRight
+            />
+            <Column
+              data={this.shoppingList}
+              name="Unit"
+              index={2}
+              alignRight
+            />
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+}
+
