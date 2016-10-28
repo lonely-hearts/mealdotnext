@@ -78,11 +78,11 @@ const InfoDisplay = props => (
       />
       <View style={styles.buttonContainer}>
         <Button
-          onclick={props.postMeal}
+          onclick={() => { props.postMeal(props.recipe._id, props.mealId); }}
           text={props.text}
         />
         <Button
-          onclick={this.props.navigation.pop()}
+          onclick={props.navigation.pop()}
           text="Back"
         />
       </View>

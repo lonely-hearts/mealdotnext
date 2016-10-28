@@ -23,12 +23,9 @@ const compileList = (meals) => {
     });
   });
 
-  const ingredients = Object.keys(result);
-  for (let i = 0; i < ingredients.length; i += 1) {
-    const ingredient = ingredients[i];
-    const amount = result[ingredient];
+  Object.entries(result).forEach(([ingredient, amount]) => {
     list.push([ingredient, amount.quantity, amount.measure]);
-  }
+  });
   return list;
 };
 

@@ -22,11 +22,6 @@ const styles = StyleSheet.create({
 export default class MealList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayInfo: false,
-      currentRecipe: {},
-      currentMeal: 0,
-    };
     this.getData = this.getData.bind(this);
     this.postMeal = this.postMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
@@ -44,22 +39,24 @@ export default class MealList extends React.Component {
       }).done();
   }
 
-  postMeal() {
-    fetch(mealUrl + this.state.currentMeal,
-            { method: 'DELETE',
-              headers: { 'x-access-token': this.props.getToken() } });
-    this.setState({
-      displayInfo: false,
-      currentRecipe: {},
-    }, this.getData);
-    this.gotoPrevious();
+  postMeal(recipeId, mealId) {
+    console.log('mealId', mealId);
+    fetch(mealUrl + mealId,
+      {
+        method: 'DELETE',
+        headers: { 'x-access-token': this.props.getToken() },
+      })
+      .then(() => {
+        this.props.navigator.push({ component: MealList });
+      });
   }
 
-  gotoNext(recipe) {
+  gotoNext(recipe, mealId) {
     this.props.navigator.push({
       component: InfoDisplay,
       passProps: {
         recipe,
+        mealId,
         hideInfo: this.hideInfo,
         postMeal: this.postMeal,
         text: 'Remove',
@@ -67,20 +64,7 @@ export default class MealList extends React.Component {
     });
   }
 
-  gotoPrevious() {
-    this.props.navigator.pop();
-  }
-
   render() {
-    if (this.state.displayInfo) {
-      return (
-        <InfoDisplay
-          recipe={this.state.currentRecipe}
-          postMeal={this.postMeal}
-          text="Remove"
-        />
-      );
-    }
     return (
       <View style={styles.container}>
         <LogoDisplay />
@@ -94,6 +78,7 @@ export default class MealList extends React.Component {
               recipe={meal.recipe}
               showInfo={this.gotoNext}
               key={i}
+              mealId={meal._id}
             />
           ))}
         </ScrollView>
