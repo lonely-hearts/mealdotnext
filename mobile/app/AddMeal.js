@@ -1,117 +1,22 @@
 import Exponent from 'exponent';
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import MealTile from './MealTile';
 import Searchbar from './Searchbar';
 import HeaderDisplay from './HeaderDisplay';
 import LogoDisplay from './LogoDisplay';
 import InfoDisplay from './InfoDisplay';
 
-var width = Dimensions.get('window').width;
-
-var recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
-var mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/'
-
-export default class AddMeal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetchData: [],
-      displayInfo: false,
-      searchString: '',
-      currentRecipe: {},
-      currentRecipeId: 0
-    };
-  } 
-
-  getData() {
-    fetch(recipeUrl + this.state.searchString, {
-      method: 'GET', 
-      headers: {'x-access-token': this.props.token}
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data) {
-          this.setState({ fetchData: data });
-        }
-      }).done();
-  }
-
-  postMeal() {
-    fetch(mealUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'x-access-token': this.props.token,
-      },
-      body: JSON.stringify({
-        userId: this.props.userId,
-        recipeId: this.state.currentRecipeId
-      })
-    });
-    
-    this.setState({
-      displayInfo: false,
-      currentRecipe: {}
-    }, this.getData);
-  }
-
-  showInfo(recipe) {
-    this.setState({
-      currentRecipe: recipe,
-      displayInfo: true,
-      currentRecipeId: recipe._id
-    })
-  }
-
-  hideInfo() {
-    this.setState({
-      displayInfo: false,
-      currentRecipe: {}
-    }, this.getData);
-  }
-
-  search(string) {
-    this.setState({
-      searchString: string
-    }, this.getData);
-  }
-
-  render() {
-    if(this.state.searchString === '') {
-      return (
-        <View style={styles.container}>
-          <LogoDisplay />
-          <Searchbar enter={this.search.bind(this)}/>
-        </View>
-      )
-    } 
-    else if(this.state.displayInfo) {
-      return <InfoDisplay recipe={this.state.currentRecipe} 
-                          hideInfo={this.hideInfo.bind(this)} 
-                          postMeal={this.postMeal.bind(this)}
-                          text='Add'/>
-    } 
-    else {
-      return (
-        <View style={styles.container}>
-          <LogoDisplay />
-          <Searchbar enter={this.search.bind(this)}/>
-          <ScrollView contentContainerStyle={styles.contentContainer}
-                      showsVerticalScrollIndicator={false}
-                      alwaysBounceVertical={true}>
-            {this.state.fetchData.map((meal, i) => (
-              <MealTile recipe={meal} 
-                        showInfo={this.showInfo.bind(this)}
-                        key={i}/> 
-            ))}
-          </ScrollView>
-        </View>
-      )
-    }
-  }
-}
+const width = Dimensions.get('window').width;
+const recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
+const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/'
 
 const styles = StyleSheet.create({
   container: {
@@ -124,3 +29,86 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
 });
+
+export default class AddMeal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayInfo: false,
+      searchString: '',
+      currentRecipe: {},
+      currentRecipeId: 0,
+    };
+    this.getData = this.getData.bind(this);
+    this.postMeal = this.postMeal.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
+  }
+
+  getData(searchString) {
+    fetch(recipeUrl + searchString, {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      if (data) {
+        this.props.updateSearchRecipes(data);
+      }
+    }).done();
+  }
+
+  postMeal(recipeId) {
+    fetch(mealUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.props.getToken(),
+      },
+      body: JSON.stringify({
+        userId: this.props.getUserId(),
+        recipeId,
+      }),
+    });
+
+    this.gotoPrevious();
+  }
+
+  gotoNext(recipe) {
+    this.props.navigator.push({
+      component: InfoDisplay,
+      passProps: {
+        recipe,
+        hideInfo: this.hideInfo,
+        postMeal: this.postMeal,
+        text: 'Add',
+      },
+    });
+  }
+
+  gotoPrevious() {
+    this.props.navigator.pop();
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <LogoDisplay />
+        <Searchbar enter={this.getData} />
+        <ScrollView
+          contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical
+        >
+          {this.props.getSearchRecipes().map((meal, i) => (
+            <MealTile
+              recipe={meal}
+              showInfo={this.gotoNext}
+              key={i}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    );
+  }
+}
+

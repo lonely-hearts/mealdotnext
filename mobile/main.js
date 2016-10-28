@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import AddMeal from './app/AddMeal';
 import MealList from './app/MealList';
 import Searchbar from './app/Searchbar';
 import HeadBuffer from './app/HeadBuffer';
@@ -59,32 +60,50 @@ const styles = StyleSheet.create({
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index) {
-    if (index > 1) {
+    if (index > 0) {
       return (
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => {
-            if (index > 0) {
-              navigator.pop();
-            }
+            navigator.push({
+              component: MealList,
+              passProps: {
+              },
+            });
           }}
         >
-          <Text style={styles.leftNavButtonText}>Back</Text>
+          <Text style={styles.leftNavButtonText}>MealList</Text>
         </TouchableHighlight>
       );
     }
     return null;
   },
-  RightButton(route) {
-    if (route.onPress) {
+  RightButton(route, navigator, index) {
+    if (index > 0) {
       return (
-        <TouchableHighlight onPress={() => route.onPress()}>
-          <Text style={styles.rightNavButtonText}>
-            { route.rightText || 'Right Button' }
-          </Text>
+        <TouchableHighlight
+          underlayColor="transparent"
+          onPress={() => {
+            navigator.push({
+              component: AddMeal,
+              passProps: {
+              },
+            });
+          }}
+        >
+          <Text style={styles.leftNavButtonText}>Add Meal</Text>
         </TouchableHighlight>
       );
     }
+    // if (route.onPress) {
+    //   return (
+    //     <TouchableHighlight onPress={() => route.onPress()}>
+    //       <Text style={styles.rightNavButtonText}>
+    //         { route.rightText || 'Right Button' }
+    //       </Text>
+    //     </TouchableHighlight>
+    //   );
+    // }
     return null;
   },
   Title() {
@@ -100,23 +119,28 @@ class App extends React.Component {
       userId: null,
       token: null,
       mealList: [],
+      searchRecipes: [],
     };
     this.getMealList = this.getMealList.bind(this);
     this.getToken = this.getToken.bind(this);
     this.getUserId = this.getUserId.bind(this);
+    this.getSearchRecipes = this.getSearchRecipes.bind(this);
     this.updateMealList = this.updateMealList.bind(this);
     this.updateToken = this.updateToken.bind(this);
     this.updateUserId = this.updateUserId.bind(this);
+    this.updateSearchRecipes = this.updateSearchRecipes.bind(this);
     this.renderScene = this.renderScene.bind(this);
   }
 
   getMealList() { return this.state.mealList; }
   getToken() { return this.state.token; }
   getUserId() { return this.state.userId; }
+  getSearchRecipes() { return this.state.searchRecipes; }
 
   updateMealList(mealList) { this.setState({ mealList }); }
   updateToken(token) { this.setState({ token }); }
   updateUserId(userId) { this.setState({ userId }); }
+  updateSearchRecipes(searchRecipes) { this.setState({ searchRecipes }); }
 
   renderScene(route, navigator) {
     return (
@@ -126,9 +150,11 @@ class App extends React.Component {
         getMealList={this.getMealList}
         getToken={this.getToken}
         getUserId={this.getUserId}
+        getSearchRecipes={this.getSearchRecipes}
         updateMealList={this.updateMealList}
         updateToken={this.updateToken}
         updateUserId={this.updateUserId}
+        updateSearchRecipes={this.updateSearchRecipes}
       />
     );
   }

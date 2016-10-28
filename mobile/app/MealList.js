@@ -67,7 +67,7 @@ export default class MealList extends React.Component {
     });
   }
 
-  gotoPrevious(recipe) {
+  gotoPrevious() {
     this.props.navigator.pop();
   }
 
