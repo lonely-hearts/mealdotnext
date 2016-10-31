@@ -32,7 +32,7 @@ export default class MealList extends React.Component {
     this.getData();
   }
 
-  getData() {
+  getData(cb) {
     fetch(userUrl + this.props.getUserId(), {
       method: 'GET',
       headers: { 'x-access-token': this.props.getToken() },
@@ -40,7 +40,9 @@ export default class MealList extends React.Component {
     .then(res => res.json())
     .then((data) => {
       this.props.updateMealList(data.mealsObjs);
-    }).done();
+    }).done(() => {
+      if (cb) { cb(); }
+    });
   }
 
   postMeal(recipeId, mealId) {
@@ -49,7 +51,7 @@ export default class MealList extends React.Component {
       headers: { 'x-access-token': this.props.getToken() },
     })
     .then(() => {
-      this.props.navigator.push({ component: MealList });
+      this.getData(() => this.props.navigator.pop());
     });
   }
 

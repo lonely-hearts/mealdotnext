@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 const moveTo = (navigator, component) => {
-  navigator.push({ component });
+  navigator.replace({ component });
 };
 
 const NavBar = (props) => {

@@ -55,7 +55,7 @@ export default class AddMeal extends React.Component {
       }),
     })
     .then(() => {
-      this.gotoPrevious();
+      this.props.navigator.pop();
     });
   }
 
@@ -68,10 +68,6 @@ export default class AddMeal extends React.Component {
         text: 'Add',
       },
     });
-  }
-
-  gotoPrevious() {
-    this.props.navigator.pop();
   }
 
   render() {
