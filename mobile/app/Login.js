@@ -113,7 +113,8 @@ export default class Login extends React.Component {
     return (
     <View style={styles.main}>
       <Image
-        source={{uri: 'http://s18.postimg.org/opemjpvrd/resized_background.jpg'}}
+        // if background image doesn't appear test url, site may have dropped uploaded image
+        source={{uri: 'https://s21.postimg.org/azydn73pz/resized_background.jpg'}}
         style={styles.backgroundImage}
       >
         <View style={styles.row}>
