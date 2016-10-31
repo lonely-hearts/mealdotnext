@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    fontWeight: 'bold',
+    fontFamily: 'Futura',
     marginTop: 30,
     backgroundColor: 'transparent',
     alignSelf: 'center',
