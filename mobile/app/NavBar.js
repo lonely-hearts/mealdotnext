@@ -12,9 +12,11 @@ const styles = StyleSheet.create({
   container: {
     width,
     height: 40,
+    borderTopWidth: 1,
+    borderColor: 'gray',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
 });
 
@@ -26,9 +28,9 @@ const NavBar = (props) => {
   if (props.navigator.getCurrentRoutes().length > 1) {
     return (
       <View style={styles.container}>
-        <Button text="Meals" onclick={() => moveTo(props.navigator, MealList)} />
-        <Button text="Shop" onclick={() => moveTo(props.navigator, ShoppingList)} />
-        <Button text="Add" onclick={() => moveTo(props.navigator, AddMeal)} />
+        <Button icon="md-list-box" onclick={() => moveTo(props.navigator, MealList)} />
+        <Button icon="md-basket" onclick={() => moveTo(props.navigator, ShoppingList)} />
+        <Button icon="md-add-circle" onclick={() => moveTo(props.navigator, AddMeal)} />
       </View>
     );
   }
