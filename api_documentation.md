@@ -2,7 +2,6 @@
 
 # mealdotnext API documentation
 
-
 ## API endpoints
 --------------------------------------------------------------
 
@@ -74,6 +73,3 @@ Input: nothing
 Response: 200 and the created recipe object
 
 --------------------------------------------------------------
-
-
-
