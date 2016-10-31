@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   container: {
     width,
     height: 40,
+    backgroundColor: 'green',
     borderTopWidth: 1,
     borderColor: 'gray',
     flexDirection: 'row',

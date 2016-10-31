@@ -57,7 +57,7 @@ const Button = ({ text, icon, onclick }) => {
       <TouchableHighlight
         onPress={onclick}
       >
-       <Ionicons name={icon} size={39} color="green" onPress={onclick} /> 
+       <Ionicons name={icon} size={39} color="white" onPress={onclick} /> 
       </TouchableHighlight>
   ) 
 };
