@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: 30,
+    fontFamily: 'Futura',
     marginTop: 2,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
 
 const LogoDisplay = () => (
   <View style={styles.logo}>
-    <Text style={styles.headline}>Meal.Next</Text>
+    <Text style={styles.headline}>Meal.next</Text>
   </View>
 );
 

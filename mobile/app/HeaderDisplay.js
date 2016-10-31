@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: 30,
+    fontFamily: 'Futura',
     marginTop: 2,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
