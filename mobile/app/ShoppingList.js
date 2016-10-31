@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
 import LogoDisplay from './LogoDisplay';
 import Column from './Column';
+import HeadBuffer from './HeadBuffer';
 
 const width = Dimensions.get('window').width;
 
@@ -57,6 +58,7 @@ export default class ShoppingList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <HeadBuffer />
         <LogoDisplay />
         <ScrollView
           contentContainerStyle={styles.container}

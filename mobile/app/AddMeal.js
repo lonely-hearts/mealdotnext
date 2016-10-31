@@ -4,6 +4,7 @@ import MealTile from './MealTile';
 import Searchbar from './Searchbar';
 import LogoDisplay from './LogoDisplay';
 import InfoDisplay from './InfoDisplay';
+import HeadBuffer from './HeadBuffer';
 
 const recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
 const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
@@ -76,6 +77,7 @@ export default class AddMeal extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <HeadBuffer />
         <LogoDisplay />
         <Searchbar enter={this.getData} />
         <ScrollView

@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
 import LogoDisplay from './LogoDisplay';
+import HeadBuffer from './HeadBuffer';
 
 const userUrl = 'https://mealdotnext4.herokuapp.com/api/user/';
 const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
@@ -67,6 +68,7 @@ export default class MealList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <HeadBuffer />
         <LogoDisplay />
         <ScrollView
           contentContainerStyle={styles.contentContainer}

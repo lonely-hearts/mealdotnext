@@ -9,6 +9,7 @@ import {
 import HeaderDisplay from './HeaderDisplay';
 import Button from './Button';
 import Column from './Column';
+import HeadBuffer from './HeadBuffer';
 
 const width = Dimensions.get('window').width;
 
@@ -71,6 +72,7 @@ const compileNutrition = (data) => {
 
 const InfoDisplay = props => (
   <View style={styles.container}>
+    <HeadBuffer />
     <HeaderDisplay recipe={props.recipe} />
     <ScrollView contentContainerStyle={styles.scroller}>
       <Image
@@ -83,7 +85,7 @@ const InfoDisplay = props => (
           text={props.text}
         />
         <Button
-          onclick={() => { props.navigation.pop(); }}
+          onclick={() => { props.navigator.pop(); }}
           text="Back"
         />
       </View>

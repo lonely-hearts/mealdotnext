@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-  }
+  },
 });
 // ENV Variables
 const loginUrl = 'https://mealdotnext4.herokuapp.com/api/user/authenticate';
