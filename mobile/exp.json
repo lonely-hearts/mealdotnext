@@ -1,7 +1,7 @@
 {
-  "name": "mobile",
-  "description": "An empty new project",
-  "slug": "mobile",
+  "name": "Meal.Next",
+  "description": "MealDotNext",
+  "slug": "MealDotNext",
   "sdkVersion": "10.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
@@ -17,5 +17,11 @@
   },
   "packagerOpts": {
     "assetExts": ["ttf", "mp4"]
+  },
+  "ios": {
+    "bundleIdentifier": "org.mealdotnext.exp",
+  },
+  "android": {
+    "package": "org.mealdotnext.exp",
   }
 }

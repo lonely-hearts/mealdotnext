@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 10,
   },
+  contentContainer: {
+    alignItems: 'center',
+  }
 });
 
 export default class ShoppingList extends React.Component {
@@ -61,7 +64,7 @@ export default class ShoppingList extends React.Component {
         <HeadBuffer />
         <LogoDisplay />
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >

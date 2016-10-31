@@ -7,9 +7,12 @@ import {
   View,
   TouchableHighlight,
   Alert,
+  Dimensions,
 } from 'react-native';
 import t from 'tcomb-form-native';
 import MealList from './MealList';
+
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   main: {
@@ -19,10 +22,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     // alignItems: 'center',
+    alignSelf: 'center',
     marginTop: 30,
-    marginRight: 50,
-    marginLeft: 50,
-    borderRadius: 10,
+    width: width * 0.9,
+    borderRadius: 5,
     flexDirection: 'column',
     // width: 150,
     // height: 300,
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderColor: 'green',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 5,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -73,7 +76,16 @@ const Person = t.struct({
   username: t.String,
   password: t.String,
 });
-const options = {};
+const options = {
+  fields: {
+    username: {
+      autoCapitalize: 'none'
+    },
+    password: {
+      secureTextEntry: true
+    }
+  }
+};
 
 
 const onValueChange = async (item, selectedValue) => {
