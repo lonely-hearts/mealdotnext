@@ -5,6 +5,9 @@ const rp = require('request-promise');
 const APIURL = 'https://api.edamam.com/search?q=';
 
 module.exports = {
+  /*
+  fetch all meals from the third party api for a certain query and cache them
+  */
   findRecipes: (req, res) => {
     const query = req.params.q;
     // What if url is not valid?

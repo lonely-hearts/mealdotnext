@@ -3,6 +3,9 @@ const Recipe = require('../models/recipeModel.js');
 const Meal = require('../models/mealModel.js');
 const userController = require('./userController.js');
 
+/*
+Creates a Meal in the Meal Collection and also adds its id to the User's mealIds property
+*/
 exports.saveMeal = (req, res) => {
   Meal.create({
     userId: req.body.userId,
@@ -21,6 +24,9 @@ exports.saveMeal = (req, res) => {
   });
 };
 
+/*
+Deletes a Meal in the Meal Collection and also deltes its id in the User's mealIds property
+*/
 exports.deleteMeal = (req, res) => {
   Meal.findOneAndRemove({ _id: req.params.mealId })
   .then((deletedMeal) => {
@@ -35,6 +41,9 @@ exports.deleteMeal = (req, res) => {
   });
 };
 
+/*
+Moves the mealId from the User's mealIds property to the his pastMealIds property
+*/
 exports.eatMeal = (req, res) => {
   Meal.findOne({ _id: req.params.mealId })
   .then((eatenMeal) => {
@@ -49,12 +58,17 @@ exports.eatMeal = (req, res) => {
   });
 };
 
+/*
+Helper function to resolve a recipe id into the corresponding object
+*/
 exports.resolveRecipeIds = recipeId =>
   Recipe.findOne({ _id: recipeId })
   .exec()
   .then((recipeObj => recipeObj));
 
-
+/*
+Resolves each mealId of an array to its object with also resolving the recipeId of the meal
+*/
 exports.resolveMealIds = (mealIdArr) => {
   const mealObjs = mealIdArr.map(mealId => Meal.findOne({ _id: mealId })
   .exec()
@@ -66,7 +80,9 @@ exports.resolveMealIds = (mealIdArr) => {
     .then(mealObjsArr => mealObjsArr);
 };
 
-
+/*
+Updates the meal's haveIngredient property
+*/
 exports.updateMeal = (req, res) => {
   Meal.findByIdAndUpdate(req.body.mealId, { $set: { haveIngredient: req.body.haveIngredient } },
     { new: true }, (err, meal) => {
