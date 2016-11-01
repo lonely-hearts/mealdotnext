@@ -1,22 +1,9 @@
+
+
 #mealdotnext API documentation
 
 
 ##API endpoints
---------------------------------------------------------------
-
-###User
-####Get All of a User
-Method: GET
-Path: /api/user/"userId"
-Input: userId through the url
-Response: Object of the User with the resolved Recipe objects in mealsObjs and pastMealsObjs
-
-####Signup new User
-Method: POST
-Path: /api/user/
-Input: JSON with properties username and password
-Response: ObjectId of the new User
-
 --------------------------------------------------------------
 
 ###Meals
@@ -67,6 +54,26 @@ Response: 200 and Object with properties token, username and userId
 
 --------------------------------------------------------------
 
+###Recipes
+####Get all recipes
+Method: GET
+Path: /api/recipe/
+Input: nothing
+Response: 200 and array of all recipes in our database
+
+####Get recipes that match a certain query (search)
+Method: GET
+Path: /api/recipe/"query"
+Input: query string for a certain dish
+Response: 200 and array of all recipes for the query
+
+####Add a recipe
+Method: POST
+Path: /api/recipe/
+Input: nothing
+Response: 200 and the created recipe object
+
+--------------------------------------------------------------
 
 
 
