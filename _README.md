@@ -21,14 +21,15 @@
 ## Usage
 
 > Some usage instructions
+> Api documentation in separate document
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 4.5.x or higher
+- Exponent
+- XCode
+- npm
+- at least 3 GHz octa-core CPU and a Geforce 6000 XL
 
 ## Development
 
@@ -36,11 +37,10 @@
 
 From within the root directory:
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
+1. npm install in root directory
+2. npm install in mobile directory
+
+### Tasks
 
 ### Roadmap
 

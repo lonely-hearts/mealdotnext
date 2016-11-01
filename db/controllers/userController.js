@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const secret = require('../../server/config/config.js').secret;
 const bcrypt = require('bcrypt-nodejs');
 
+/*
+fetches the User's object with resolving all mealIds into their respective objects
+*/
 exports.getUser = (req, res) => {
   User.findOne({ _id: req.params.id }).exec()
     .then((user) => {
@@ -67,6 +70,9 @@ exports.authenticateUser = (req, res) => {
     });
 };
 
+/*
+Helper functions mainly used by the mealController
+*/
 exports.deleteUserMeal = (userId, mealId) => User.findOne({ _id: userId })
     .then((foundUser) => {
       foundUser.mealIds.splice(foundUser.mealIds.indexOf(mealId), 1);

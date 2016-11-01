@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-// const Recipe = require('./recipeModel.js');
-// const User = require('./userModel.js');
 mongoose.Promise = require('bluebird');
 const RecipeSchema = require('./recipeSchema.js');
 
