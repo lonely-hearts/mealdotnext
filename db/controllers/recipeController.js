@@ -28,11 +28,20 @@ module.exports = {
               Recipe.create(newRecipes)
                 .then((recipes) => {
                   res.json(recipes);
+                })
+                .catch(() => {
+                  res.status(404).end('Failed to store recipes to database');
                 });
+            })
+            .catch(() => {
+              res.status(404).end('Failed to get recipes from Edamam API');
             });
         } else {
           res.json(storedRecipes);
         }
+      })
+      .catch(() => {
+        res.status(404).end('Failed to find recipes from database');
       });
   },
 
@@ -40,6 +49,9 @@ module.exports = {
     Recipe.find({}).exec()
       .then((storedRecipes) => {
         res.json(storedRecipes);
+      })
+      .catch(() => {
+        res.status(404).end('Failed to find recipes from database');
       });
   },
 
@@ -50,7 +62,7 @@ module.exports = {
         res.json(recipe);
       })
       .catch(() => {
-        res.sendStatus(404);
+        res.status(404).end('Failed to add recipe');
       });
     // what if recipe already exists?
   },
