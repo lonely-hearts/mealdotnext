@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Ben Hesseldieck
+  - __Scrum Master__: Jace Zhu
+  - __Development Team Members__: Robbie Gifford, Cheney Mao, Jace Zhu, Ben Hesseldieck
 
 ## Table of Contents
 
@@ -29,7 +29,6 @@
 - Exponent
 - XCode
 - npm
-- at least 3 GHz octa-core CPU and a Geforce 6000 XL
 
 ## Development
 
