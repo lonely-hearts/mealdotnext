@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Robbie Gifford
+  - __Product Owner__: Ben Hesseldieck
   - __Scrum Master__: Jace Zhu
-  - __Development Team Members__: Robbie Gifford, Jace Zhu, Cheney Mao, Ben Hesseldieck
+  - __Development Team Members__: Robbie Gifford, Cheney Mao, Jace Zhu, Ben Hesseldieck
 
 ## Table of Contents
 
@@ -23,8 +23,11 @@
 
 ## Requirements
 
-- Node v4.1.1+
+
+- Node 4.5.x or higher
 - Exponent XDE
+- XCode
+- npm
 
 ## Development
 
