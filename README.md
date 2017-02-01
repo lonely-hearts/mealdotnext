@@ -2,6 +2,9 @@
 
 > Meal planner and shopping list generator 
 
+![Login Screen](/project_images/mealdotnext_login.png "Login Screen")
+![Main](/project_images/mealdotnext_main.png "Main")
+
 ## Team
 
   - __Product Owner__: Robbie Gifford
@@ -10,11 +13,11 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
+1. [Usage](#usage)
 2. [Requirements](#requirements)
 3. [Development](#development)
   1. [Installing Dependencies](#installing-dependencies)
-  2. [Tasks](#tasks)
+  2. [Roadmap](#roadmap)
 4. [Contributing](#contributing)
 
 ## Usage
