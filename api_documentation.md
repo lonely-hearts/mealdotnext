@@ -1,5 +1,3 @@
-
-
 # mealdotnext API documentation
 
 ## API endpoints

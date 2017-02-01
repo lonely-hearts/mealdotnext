@@ -4,8 +4,6 @@ From within the root directory:
 1. npm install in /
 2. npm install in /mobile
 
-
-
 To get server properly connected:
 
 In the root directory:
